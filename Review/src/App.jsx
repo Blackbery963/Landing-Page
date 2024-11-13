@@ -51,6 +51,7 @@ function App() {
     <ReviewCard/>
     <ReviewCard/>
     <ReviewCard/>
+    <ReviewCard/>
   </Slider>
  
   )

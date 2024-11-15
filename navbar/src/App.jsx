@@ -6,104 +6,52 @@ import search from '/home/swarnadip/Documents/Index/navbar/src/image/search-icon
 function App() {
   
   return (
-    <>
-    <div className='h-[12vh] w-[100vw] bg-white sm:bg-slate-950 border-[1px] border-red-900 sm:border-none sticky'>
+    <nav>
+      <div className='h-[12vh] w-full bg-slate-950 flex items-center justify-between pl-4 pr-4'>
 
+        {/* the div for menu icon */}
 
-      <div className='h-[100%] w-[100%] flex justify-between overflow-hidden'>
-
-
-        {/* The menu div */}
-        <div className='sm:h-[45px] sm:w-[45px] h-[35px] w-[35px] bg-green-800 ml-4 mt-7 sm:mt-8 rounded-lg hover:bg-green-700'>
+        <div className='h-[4vh] w-[5vh] bg-green-900 items-center pl-2 rounded-md  hover:bg-green-800 hover:border-[1px] hover:border-green-600 '>
           <a href="https://www.google.com">
-          <img className='sm:h-[40px] sm:w-[40px] h-[30px] w-[30px] pl-1 pt-1' src={menu} alt="menu" />
+          <img className='h-[100%] w-[80%]' src={menu} alt="" />
           </a>
         </div>
-        {/* the logo div */}
-        <div className='h-[100%] sm:w-[20%] w-[40%] sm:mt-3 mt-6 ml-[10%]'>
-          <h1 className='sm:text-[40px] text-[20px] sm:font-bold font-semibold  font-eagle text-orange-700 ml-[5%]'>Painters' Diary</h1>
-          <p className='sm:font-medium sm:mt-[-10px] mt-[-5px] font-dancing font-normal italic sm:text-2xl text-sm sm:ml-[18%] ml-[15%] text-blue-500'>The Diary of Every Artist</p>
+
+
+
+
+
+
+        {/* The div for logo ('Painters Diary' and 'The Diary of Every Artist' ) icon */}
+        <div className='ml-6'>
+          <h1 className='text-orange-700 font-eagle font-bold text-[2vw]'>Painters' Diary</h1>
+          <h6 className='text-blue-600 font-cookie font-medium text-[1.25vw] ml-[20%] mt-[-2%]'>The Diary  of Every Artist</h6>
         </div>
 
 
 
+        {/* The last  button  */}
+        <div className='flex gap-3 items-center'>
 
-        {/* the buttun main div */}
+          {/* the div for search button */}
+          <div className='h-[1.8vw] w-[6vw] border-[1px] border-slate-300 rounded-3xl'>
+            <button>
+            
+            </button>
+          </div>
 
-         <div className='flex gap-3 mt-9 relative sm:invisible'>
-
-          {/* for the search icon  */}
-
+          {/* the div for others button */}
+          <div className='flex gap-6 text-[.75vw] h-[4vh] justify-center items-center'>
+          <button className='h-[2.5vh] hover:bg-green-900 hover:border-[1px] hover:border-green-600 hover:text-black pl-2 pr-2 rounded-[0.5rem] text-white font-Faculty'>Home</button>
+          <button className='h-[2.5vh] hover:bg-green-900 hover:border-[1px] hover:border-green-600 hover:text-black pl-2 pr-2 rounded-[0.5rem] text-white font-Faculty'>About</button>
+          <button className='h-[2.5vh] hover:bg-green-900 hover:border-[1px] hover:border-green-600 hover:text-black pl-2 pr-2 rounded-[0.5rem] text-white font-Faculty'>Contact</button>
+          <button className='h-[2.5vh] hover:bg-green-900 hover:border-[1px] hover:border-green-600 hover:text-black pl-2 pr-2 rounded-[0.5rem] text-white font-Faculty'>Sign-up</button>
+          </div>
           
-           {/* for the sisn up icom  */}
-           <div>
-            <button className='h-[28px] w-[70px] pl-1 pr-1 rounded-lg  bg-black text-red-700'>Sign in</button>
-           </div>
-          </div>
-
-
-
-
-
-
-
-
-
-
-
-        {/* for larger screen approach */}
-        <div className='h-[60px] w-[25%] bg-slate-950 mt-[27px] flex justify-between sm:visible invisible'>
-
-
-          {/* div for search bar */}
-
-          {/* the div for the larger screen approach */}
-          <div className='w-[25%] bg-black h-[70%] rounded-3xl mt-[9px] ml-1 border-white border-[1px]'>
-            <div></div>
-          </div>
-
-
-
-          {/* for all other buttons  */}
-
-          <div className='w-[65%] h-[60%] bg-black mt-[12px] mr-2 flex justify-center items-center gap-6 '>
-            {/* for home div */}
-            <div>
-              <a href="https://www.facebook.com">
-              <button className='text-white font-medium h-[80%] w-auto hover:bg-slate-800 rounded-md  pl-1 pr-1'>Home</button>
-              </a>
-            </div>
-            {/* About button */}
-            <div>
-              <a href="https://www.amazon.in">
-              <button className='text-white font-medium h-[80%] w-auto hover:bg-slate-800 rounded-md  pl-1 pr-1'>About</button>
-              </a>
-            </div>
-            {/* Contact button */}
-            <div>
-              <a href="https://www.wixstudio.com">
-                <button className='text-white font-medium h-[80%] w-auto hover:bg-slate-800 rounded-md  pl-1 pr-1'>Contact</button>
-              </a>
-            </div>
-            {/* Sign-up button */}
-            <div>
-              <a href="https://www.flipkart.com">
-                <button className='text-white font-medium h-[80%] w-auto hover:bg-slate-800 rounded-md  pl-1 pr-1'>Sign-up</button>
-              </a>
-            </div>
-
-
-
-
-
-
-
-
-          </div>
         </div>
+
       </div>
-    </div>
-    </>
+    </nav>
   )
 }
 

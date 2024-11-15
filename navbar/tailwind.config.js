@@ -11,7 +11,8 @@ export default {
 
       fontFamily: {
         eagle: ['"Eagle Lake"', 'cursive'],
-        dancing: ['"Dancing Script"', 'cursive'],
+        cookie: ['"Cookie"', 'cursive'],
+        Faculty:['"Faculty Glyphic"', 'sans-serif']
     },
   },
   plugins: [],

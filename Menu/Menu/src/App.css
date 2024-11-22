@@ -1,0 +1,20 @@
+.home {
+        height: 2.8vh;
+        width: 5.5vw;
+        font-size: .8vw;
+        background-color: rgba(0, 0, 0, 0.14);
+        backdrop-filter: blur(12px);
+        color: #D1DBD5;
+        font-weight: 600;
+        font-family: 'YourFontName', sans-serif; /* Update 'YourFontName' as needed */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.5rem;
+       
+      }
+      
+      .home:hover {
+        border: 1px solid #6B7280;
+      }
+      

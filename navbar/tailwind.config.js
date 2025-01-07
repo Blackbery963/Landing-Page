@@ -5,10 +5,6 @@ export default {
   theme: {
     extend: {
 
-      screens: {
-        sm: "479px",
-      },
-
       fontFamily: {
         eagle: ['"Eagle Lake"', 'cursive'],
         cookie: ['"Cookie"', 'cursive'],

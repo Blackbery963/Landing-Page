@@ -1,57 +1,74 @@
-import { useState } from 'react'
-import './App.css'
-import menu from '/home/swarnadip/Documents/Index/navbar/src/image/menu.png'
-import search from '/home/swarnadip/Documents/Index/navbar/src/image/search-icon.png'
+import React from 'react'
+import Typewriter from 'react-typewriter-effect'
+import Menu from '/home/swarnadip/Documents/Index/navbar/src/image/menu.png'
 
 function App() {
-  
   return (
-    <nav>
-      <div className='h-[12vh] w-full bg-slate-950 flex items-center justify-between pl-4 pr-4'>
-
-        {/* the div for menu icon */}
-
-        <div className='h-[4vh] w-[5vh] bg-green-900 items-center pl-2 rounded-md  hover:bg-green-800 hover:border-[1px] hover:border-green-600 '>
-          <a href="https://www.google.com">
-          <img className='h-[100%] w-[80%]' src={menu} alt="" />
-          </a>
-        </div>
-
-
-
-
-
-
-        {/* The div for logo ('Painters Diary' and 'The Diary of Every Artist' ) icon */}
-        <div className='ml-6'>
-          <h1 className='text-orange-700 font-eagle font-bold text-[2vw]'>Painters' Diary</h1>
-          <h6 className='text-blue-600 font-cookie font-medium text-[1.25vw] ml-[20%] mt-[-2%]'>The Diary  of Every Artist</h6>
-        </div>
-
-
-
-        {/* The last  button  */}
-        <div className='flex gap-3 items-center'>
-
-          {/* the div for search button */}
-          <div className='h-[1.8vw] w-[6vw] border-[1px] border-slate-300 rounded-3xl'>
-            <button>
-            
-            </button>
-          </div>
-
-          {/* the div for others button */}
-          <div className='flex gap-6 text-[.75vw] h-[4vh] justify-center items-center'>
-          <button className='h-[2.5vh] hover:bg-green-900 hover:border-[1px] hover:border-green-600 hover:text-black pl-2 pr-2 rounded-[0.5rem] text-white font-Faculty'>Home</button>
-          <button className='h-[2.5vh] hover:bg-green-900 hover:border-[1px] hover:border-green-600 hover:text-black pl-2 pr-2 rounded-[0.5rem] text-white font-Faculty'>About</button>
-          <button className='h-[2.5vh] hover:bg-green-900 hover:border-[1px] hover:border-green-600 hover:text-black pl-2 pr-2 rounded-[0.5rem] text-white font-Faculty'>Contact</button>
-          <button className='h-[2.5vh] hover:bg-green-900 hover:border-[1px] hover:border-green-600 hover:text-black pl-2 pr-2 rounded-[0.5rem] text-white font-Faculty'>Sign-up</button>
-          </div>
-          
-        </div>
-
+    // the part for representing screen values
+  <div className='w-screen h-screen bg-white'>
+    {/*the main container */}
+    <div className='h-[130px] w-[100%] bg-gradient-to-b from-[#000000e5] to-transparent pointer-events-none backdrop-blur-md sticky flex items-center justify-between pl-6 pr-6'>
+      {/* the part for menu icon */}
+      <div className='h-[45px] w-[45px] bg-[#6A1E55] hover:bg-[#A64D79] rounded-lg flex items-center justify-center'>
+        <img className=' object-contain h-[80%] w-[80%]' src={Menu} alt="" />
       </div>
-    </nav>
+
+      {/* The part for logos  */}
+      <div className=''>
+        <div>
+          <Typewriter
+          textStyle={{
+          fontFamily: "Eagle Lake",
+          fontSize: "2.5rem",
+          fontWeight: "500",
+          color: "#c83e4d",
+          }}
+          startDelay={100}
+          cursorColor="transparent"
+          multiText={[
+          "Painters' Diary",
+         
+          ]}
+          multiTextDelay={1000}
+          typeSpeed={200}
+          deleteSpeed={1000}
+          // loop={true}
+          // multiTextLoop
+          />
+        </div>
+
+        <div
+          className='ml-[60px] mt-[-10px]'
+          >
+          <Typewriter
+          textStyle={{
+          fontFamily: "Cookie",
+          fontSize: "28px",
+          color: "#D91656",
+          }}
+          startDelay={3500}
+          cursorColor="transparent"
+          multiText={[
+          "The Diary of Every Artist",
+         
+          ]}
+          multiTextDelay={1000}
+          typeSpeed={200}
+          deleteSpeed={100}
+          // loop-={true}
+          // multiTextLoop
+          />
+        </div>
+      </div>
+
+      {/* the part for search bar and the other buttons */}
+      <div>
+        <button></button>
+      </div>
+
+    </div>
+  </div>
+       
   )
 }
 

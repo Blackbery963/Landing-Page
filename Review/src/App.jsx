@@ -1,59 +1,91 @@
 import { useState } from 'react';
 import './App.css'
-import ReviewCard from './reviewCard';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Reviewcard from './Reviewcard';
+import profile_1 from '/home/swarnadip/Documents/Index/Review/src/Images/pexels-jruwa-7421636.jpg'
 
 
 
 function App() {
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
+  const images = [
+
+    {
+      Profileimg: profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+    {
+      Profileimg:profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+    {
+      Profileimg: profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+    {
+      Profileimg:profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+    { 
+      Profileimg:profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+    {
+      Profileimg:profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+    {
+      Profileimg:profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+    {
+      Profileimg:profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    }, 
+    {
+      Profileimg:profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+     {
+      Profileimg:profile_1,
+      Username: 'Swarnadip',
+      Userdescription:'Frontend Devloper',
+      Review: 'Painters Diary, beautifully captures the essence of art with its elegant design and thoughtful typography. It’s an inspiring platform for artists to explore, create, and connect.'
+    },
+
+  ]
+
+  
 
   return (
-    <Slider {...settings} className='ml-16 mr-8'> 
-    <ReviewCard/>
-    <ReviewCard/>
-    <ReviewCard/>
-    <ReviewCard/>
-    <ReviewCard/>
-    <ReviewCard/>
-    <ReviewCard/>
-  </Slider>
- 
+    <div className=' flex overflow-scroll overflow-y-hidden'>
+
+          {images.map((img, index) => (
+            <Reviewcard key={index}
+            Profileimg={img.Profileimg}
+            Username={img.Username}
+            Userdescription={img.Userdescription}
+            Review={img.Review} />
+          ))}
+
+    </div>
   )
 }
 

@@ -15,12 +15,20 @@ export default {
         playfair:['"Playfair Display"', 'serif'],
         // immerse yourself on art 
         // trade:['"Trade Winds"', 'cursive'],
-
         quint:['"Quintessential"', 'cursive'],
-        
         // the next  of innerse
         markazi:['"Markazi Text"', 'serif']
     },
+
+    keyframes:{
+      fadeIn:{
+        '0%':{scale: '0'},
+        '100%': {scale: '1'}
+      }
+    },
+    animation: {
+      fadeIn:' fadeIn 3s ease-in-out'
+    }
   },
   plugins: [],
 }

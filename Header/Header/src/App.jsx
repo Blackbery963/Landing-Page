@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import Typewriter from 'react-typewriter-effect'
 import backgroundImage from '/home/swarnadip/Documents/Index/Header/Header/src/Images/freepik-export-20240918185148kruo.png'
 import menu from '/home/swarnadip/Documents/Index/Header/Header/src/Images/menu.png'
 import search from '/home/swarnadip/Documents/Index/Header/Header/src/Images/search-icon.png'
@@ -17,6 +18,7 @@ function App() {
     backgroundAttachment:'fixed',
   }
 
+
   return (
   <div className='h-[90vh] w-[100vw] flex flex-col justify-between ' style= {backgroundImg}>
 
@@ -29,9 +31,53 @@ function App() {
       </div>
 
       {/* the logo div */}
-      <div className='ml-[10vw]'>
-      <h1 className='text-orange-700 font-eagle font-bold text-[2.4vw]'>Painters' Diary</h1>
-      <h6 className='text-blue-600 font-cookie font-medium text-[1.5vw] ml-[20%] mt-[-2%]'>The Diary  of Every Artist</h6>
+      <div className=' ml-[10%]'>
+      <div>
+      <Typewriter
+        textStyle={{
+          fontFamily: "Eagle Lake",
+          fontSize: "2.8rem",
+          fontWeight: "500",
+          color: "#c83e4d",
+        }}
+        startDelay={100}
+        cursorColor="transparent"
+        multiText={[
+          "Painters' Diary",
+         
+        ]}
+        multiTextDelay={1000}
+        typeSpeed={200}
+        deleteSpeed={1000}
+        // loop={true}
+        // multiTextLoop
+       
+      />
+      </div>
+
+      <div
+      className='ml-[70px] mt-[-10px]'
+      >
+      <Typewriter
+        textStyle={{
+          fontFamily: "Cookie",
+          fontSize: "28px",
+          color: "#D91656",
+        }}
+        startDelay={3500}
+        cursorColor="transparent"
+        multiText={[
+          "The Diary of Every Artist",
+         
+        ]}
+        multiTextDelay={1000}
+        typeSpeed={200}
+        deleteSpeed={100}
+        // loop-={true}
+        // multiTextLoop
+       
+      />
+      </div>
       </div>
 
       {/* the button div */}
@@ -48,8 +94,11 @@ function App() {
 
 
     {/* the middle div */}
-    <div className='h-[50vh] w-[40vw] pl-[2vw] pr-[2vw] pt-[2vw] mx-auto rounded-[2.5vw] hover:shadow-lg hover:shadow-gray-700 hover:transition-all hover:ease-linear hover:delay-100' >
+    <div className='h-[50vh] w-[40vw] pl-[2vw] pr-[2vw] pt-[2vw] mx-auto rounded-[1.5vw] hover:shadow-lg hover:shadow-gray-700 hover:transition-all hover:ease-linear hover:delay-200 animate-fadeIn' >
       <h1 className='font-quint text-red-700 text-[2vw] font-bold text-center'>IMMERSE YOURSELF ON ART</h1>
+
+
+
       <p className='font-markazi text-[1.2vw] font-semibold text-center text-wrap text-cyan-800 mt-[1vw]'>
       Explore a curated collection of exceptional painting from talented artist worldwide.
       Our website is designed to bring art enthusiasts and creator together, providing a
@@ -83,7 +132,7 @@ function App() {
     <div className='h-[10vh] w-[100vw] flex text-[.9vw] justify-between items-center pl-4 pr-4'>
       {/* the first part */}
       <div className='flex gap-[3vw] text-[.9vw] h-[4vh]'>
-        <button className=  'font-playfair text-slate-900 h-[90%] bg-[#ffffff9f] backdrop-blur-[10px] pl-4 pr-4 rounded-2xl font-semibold hover:border-[1px] hover:border-sky-700 hover:text-sky-700 hover:bg-[#ffffffb7] hover:backdrop-blur-md'>Home</button>
+        <button className=  ' font-playfair text-slate-900 h-[90%] bg-[#ffffff9f] backdrop-blur-[10px] pl-4 pr-4 rounded-2xl font-semibold hover:border-[1px] hover:border-sky-700 hover:text-sky-700 hover:bg-[#ffffffb7] hover:backdrop-blur-md'>Home</button>
         <button className='font-playfair text-slate-900 bg-[#ffffff9f] h-[90%] backdrop-blur-[10px] pl-4 pr-4 rounded-2xl font-semibold hover:border-[1px] hover:border-sky-700 hover:text-sky-700 hover:bg-[#ffffffb7] hover:backdrop-blur-md'>Favourite</button>
         <button className='font-playfair text-slate-900 bg-[#ffffff9f] h-[90%] backdrop-blur-[10px] pl-4 pr-4 rounded-2xl font-semibold hover:border-[1px] hover:border-sky-700 hover:text-sky-700 hover:bg-[#ffffffb7] hover:backdrop-blur-md'>Downloads</button>
       </div>

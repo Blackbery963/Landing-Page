@@ -21,7 +21,7 @@ function App() {
     <div className='bg-[#2e1414] w-screen h-screen flex items-center justify-center '>
       <div className='h-[95vh] w-[90vw] bg-[#ffffff4d] backdrop-blur-xl rounded-xl overflow-hidden border-[1px] border-white flex'>
         {/* the background div */}
-        <div className='h-[100%] w-[60%] absolute bg-center hidden lg:block' style={backgroundImg}>
+        <div className='h-[100%] w-[60%] absolute bg-center bg-contain hidden lg:block' style={backgroundImg}>
           
             <div className='h-[9vw] w-[30vw] bg-[#ffffff4d] backdrop-blur-xl border-[1px] border-white mx-auto mt-[25vh] rounded-2xl'>
               <h1 className='font-playfair font-semibold text-[2.3vw] pl-4 text-teal-50'>WELCOME!</h1>
@@ -52,7 +52,7 @@ function App() {
             <input type="text" 
             placeholder='E-mail'
               className='mt-3 w-[20vw] h-[2.2vw] rounded-lg pl-4 bg-[#ffffff59] backdrop-blur-[20px] placeholder-black font-unna shadow-xl border-white border-[1px]' />
-{/* password */}
+            {/* password */}
             <h1 className='mt-8 text-[1.6vw] font-playfair font-bold'> Password</h1>
             
               <input type="password" 

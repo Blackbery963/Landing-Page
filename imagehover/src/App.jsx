@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './App.css';
 import background from '/home/swarnadip/Documents/Index/imagehover/src/Oil- painting -min.jpg'
-import similiar from '/home/swarnadip/Documents/Index/imagehover/src/images/similiar.png'
-import favourite from '/home/swarnadip/Documents/Index/imagehover/src/images/favourite.png'
-import download from '/home/swarnadip/Documents/Index/imagehover/src/images/download.png'
-import info from '/home/swarnadip/Documents/Index/imagehover/src/images/info.png'
+import Like from '/home/swarnadip/Documents/Index/imagehover/src/images/like.svg'
+import Comment from '/home/swarnadip/Documents/Index/imagehover/src/images/comment.svg'
+import Similiar from '/home/swarnadip/Documents/Index/imagehover/src/images/four.png'
+import Download from '/home/swarnadip/Documents/Index/imagehover/src/images/download.svg'
+import Info from '/home/swarnadip/Documents/Index/imagehover/src/images/info.svg'
 import stephen from '/home/swarnadip/Documents/Index/imagehover/src/images/stefan.jpg'
 
 
@@ -26,22 +27,36 @@ backgroundCover: '100% 100%',
         </div>
 
         <div className='absolute top-[75%] flex gap-2 ml-[54%]'>
-        <div  className='text-black h-[25px] w-[25px] rounded-full'>
+        <div  className='text-black h-[25px] w-[25px] rounded-full cursor-pointer'>
           <a href="https://www.google.com">
-          <img src={similiar} alt="" /></a>
+          <img src={Like} alt="" /></a>
         </div>
-        <div  className='text-black h-[25px] w-[25px] rounded-full'>
-          <img src={favourite} alt="" />
+        <div  className='text-black h-[25px] w-[25px] rounded-full cursor-pointer '>
+          <img src={Comment} alt="" />
         </div>
-        <div  className='text-black h-[25px] w-[25px] rounded-full'>
-          <img src={download} alt="" />
+        <div  className='text-black h-[25px] w-[25px] rounded-full cursor-pointer'>
+          <img src={Info} alt="" />
         </div>
-        <div  className='text-black h-[25px] w-[25px] rounded-full'>
-          <img src={info} alt="" />
+        <div  className='text-black h-[25px] w-[25px] rounded-full cursor-pointer'
+           onClick={() => {
+            const anchor = document.createElement("a");
+            anchor.href = background; // Use the imported image path
+            anchor.download = "Oil-Painting.jpg"; // Desired file name
+            anchor.click();
+            anchor.remove();
+          }}
+        >
+          <img src={Download} alt="" />
+        </div>
+        <div  className='text-black h-[25px] w-[25px] rounded-full cursor-pointer'>
+          <img src={Info} alt="" />
         </div>
         </div>
 
       </div>
+
+
+
     </div>
 
     

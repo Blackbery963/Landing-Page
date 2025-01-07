@@ -5,6 +5,7 @@ import menu from '/home/swarnadip/Documents/Index/Header/Header/src/Images/menu.
 import search from '/home/swarnadip/Documents/Index/Header/Header/src/Images/search-icon.png'
 
 
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -82,7 +83,7 @@ function App() {
     <div className='h-[10vh] w-[100vw] flex text-[.9vw] justify-between items-center pl-4 pr-4'>
       {/* the first part */}
       <div className='flex gap-[3vw] text-[.9vw] h-[4vh]'>
-        <button className='font-playfair text-slate-900 h-[90%] bg-[#ffffff9f] backdrop-blur-[10px] pl-4 pr-4 rounded-2xl font-semibold hover:border-[1px] hover:border-sky-700 hover:text-sky-700 hover:bg-[#ffffffb7] hover:backdrop-blur-md'>Home</button>
+        <button className=  'font-playfair text-slate-900 h-[90%] bg-[#ffffff9f] backdrop-blur-[10px] pl-4 pr-4 rounded-2xl font-semibold hover:border-[1px] hover:border-sky-700 hover:text-sky-700 hover:bg-[#ffffffb7] hover:backdrop-blur-md'>Home</button>
         <button className='font-playfair text-slate-900 bg-[#ffffff9f] h-[90%] backdrop-blur-[10px] pl-4 pr-4 rounded-2xl font-semibold hover:border-[1px] hover:border-sky-700 hover:text-sky-700 hover:bg-[#ffffffb7] hover:backdrop-blur-md'>Favourite</button>
         <button className='font-playfair text-slate-900 bg-[#ffffff9f] h-[90%] backdrop-blur-[10px] pl-4 pr-4 rounded-2xl font-semibold hover:border-[1px] hover:border-sky-700 hover:text-sky-700 hover:bg-[#ffffffb7] hover:backdrop-blur-md'>Downloads</button>
       </div>

@@ -9,7 +9,8 @@ export default {
       fontFamily:{
         Eagle: ["Eagle Lake"],
         Playfair: ["Playfair Display"],
-        Markazi: ["Markazi Text"]
+        Markazi: ["Markazi Text"],
+        Tapestry:["Tapestry"],
       }
     },
   },

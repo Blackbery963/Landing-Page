@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Like from "/home/swarnadip/Documents/Index/Visual/Visual/src/SVG/like.svg";
 import Comment from "/home/swarnadip/Documents/Index/Visual/Visual/src/SVG/comment.svg";
 import Similiar from "/home/swarnadip/Documents/Index/Visual/Visual/src/SVG/circles_four_icon_173253.svg";
 import Download from "/home/swarnadip/Documents/Index/Visual/Visual/src/SVG/download.svg";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 
 function Visual() {
   const [count, setCount] = useState(0);
+  useEffect(() => {
+    AOS.init({ duration: 1200 });
+  }, [])
+
   const Images = [
     "/Image-of-Visual/img1.jpg",
     "/Image-of-Visual/img2.jpg",
@@ -38,64 +45,43 @@ function Visual() {
   };
 
   return (
-    <div className="h-screen w-screen bg-slate-300 flex flex-col gap-y-12 overflow-auto">
-      {/* Container of first part */}
-      <div className="w-screen flex mt-8">
-        {/* Textual part */}
-        <div className="w-[50%] flex flex-col items-center justify-center sm:pl-20 sm:pr-20 pl-4 pr-4 ">
-          <h1 className="text-[#c1121f] lg:text-[35px] sm:text-[30px] text-[25px] text-left font-bold font-Playfair">
+    <div className="h-auto w-full bg-slate-300 flex flex-col gap-y-12 overflow-auto">
+      {/* First Section */}
+      <div className="flex flex-col md:flex-row items-center gap-8">
+        {/* Text Section */}
+        <div className="w-full md:w-1/2 px-4 sm:px-20 flex flex-col items-center justify-center">
+          <h1 className="text-[#c1121f] lg:text-[35px] sm:text-[30px] text-[25px]  font-bold font-Playfair text-center md:text-left">
             Transforming Ideas into Visual Art Experiences that Speak to the Soul
           </h1>
-          <p className="text-[#780000] lg:text-[27px] md:text-[20px] text-[16px] text-left font-Carattere">
+          <p className="text-[#780000] lg:text-[27px] md:text-[20px] text-[16px] font-Carattere text-center md:text-left">
             We turn concepts into captivating visual experiences, bringing your ideas to life through compelling and thoughtful artistry.
           </p>
         </div>
 
-        {/* Image part */}
-        <div className="w-[50%] overflow-scroll overflow-y-hidden flex whitespace-nowrap hide-scrollbar gap-x-4 p-4 b mr-4">
+        {/* Image Section */}
+        <div className="w-full md:w-1/2 flex overflow-x-auto gap-4 p-4 hide-scrollbar">
           {Images.map((image, index) => (
             <div
               key={index}
-              className="h-[380px] w-[270px] bg-gradient-to-tl from-cyan-100 to-cyan-900 border border-white flex flex-col items-center justify-center flex-shrink-0 gap-y-2 rounded-md"
+              data-aos="fade-up"
+              className="flex-shrink-0 bg-gradient-to-tl from-cyan-100 to-cyan-900 border border-white flex flex-col items-center justify-center gap-2 rounded-md p-2"
             >
-              {/* Image */}
-              <div className="h-[250px] w-[250px] bg-white overflow-hidden">
-                <img
-                  src={image}
-                  alt={`Image ${index + 1}`}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
+              <div className="h-60 w-60 bg-white overflow-hidden rounded-md">
+                <img src={image} alt={`Image ${index + 1}`} className="h-full w-full object-cover" loading="lazy" />
               </div>
-
-              {/* Info and Actions */}
-              <div className="h-[100px] w-[250px] bg-red-400 backdrop-blur-md rounded-md">
-                {/* Button part and price tag */}
-                <div className="flex items-center justify-between pl-2 pr-2 mt-2">
+              <div className="h-24 w-60 bg-red-400 backdrop-blur-md rounded-md">
+                <div className="flex items-center justify-between p-2">
                   <div className="flex gap-2">
-                    <button>
-                      <img src={Like} alt="Like" />
-                    </button>
-                    <button>
-                      <img src={Comment} alt="Comment" />
-                    </button>
-                    <button>
-                      <img src={Similiar} alt="Similar" />
-                    </button>
-                    <button>
-                      <img src={Download} alt="Download" />
-                    </button>
+                    <button><img src={Like} alt="Like" /></button>
+                    <button><img src={Comment} alt="Comment" /></button>
+                    <button><img src={Similiar} alt="Similar" /></button>
+                    <button><img src={Download} alt="Download" /></button>
                   </div>
-                  {/* Price tag */}
-                  <div className="h-[25px] w-[80px] rounded-lg bg-black text-white flex items-center justify-center">
-                    $220
-                  </div>
+                  <div className="h-6 w-20 rounded-lg bg-black text-white flex items-center justify-center">$220</div>
                 </div>
-
-                {/* Name and description */}
                 <div className="flex flex-col mt-1 ml-2">
-                  <p className="text-[19px] font-semibold">{Username.Username}</p>
-                  <p>{Username.Description}</p>
+                  <p className="text-lg font-semibold">{Username.Username}</p>
+                  <p className="">{Username.Description}</p>
                 </div>
               </div>
             </div>
@@ -103,67 +89,46 @@ function Visual() {
         </div>
       </div>
 
-      {/* Container of last part */}
-      <div className="flex">
-        {/* Image part */}
-        <div className="w-[50%] overflow-scroll overflow-y-hidden flex whitespace-nowrap hide-scrollbar gap-x-4 p-4  ml-4">
+      {/* Second Section (Text above images in mobile, Right-aligned in larger screens) */}
+      <div className="flex flex-col md:flex-row-reverse items-center gap-8 mt-8">
+        {/* Text Section (Right Side on large screens) */}
+        <div className="w-full md:w-1/2 px-4 sm:px-20 flex flex-col items-center justify-center order-first md:order-none">
+          <h1 className="text-[#c1121f] lg:text-[35px] sm:text-[30px] text-[25px] font-bold font-Playfair text-center md:text-right">
+            Explore Boundless Creativity and Innovative Art Crafted to Inspire
+          </h1>
+          <p className="text-[#780000] lg:text-[27px] md:text-[20px] text-[16px] font-Carattere text-center md:text-right">
+            Dive into a curated collection of unique art pieces that push the boundaries of creativity, designed to evoke emotion and spark imagination.
+          </p>
+        </div>
+
+        {/* Image Section (Left Side on large screens) */}
+        <div className="w-full md:w-1/2 flex overflow-x-auto gap-4 p-4 hide-scrollbar">
           {Images_2.map((image, index) => (
             <div
               key={index}
-              className="h-[380px] w-[270px] bg-gradient-to-tl from-cyan-100 to-cyan-900 border border-white flex flex-col items-center justify-center flex-shrink-0 gap-y-2 rounded-md"
+              data-aos="fade-up"
+              className="flex-shrink-0 bg-gradient-to-tl from-cyan-100 to-cyan-900 border border-white flex flex-col items-center justify-center gap-2 rounded-md p-2"
             >
-              {/* Image */}
-              <div className="h-[250px] w-[250px] bg-white overflow-hidden">
-                <img
-                  src={image}
-                  alt={`Image ${index + 1}`}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
+              <div className="h-60 w-60 bg-white overflow-hidden rounded-md">
+                <img src={image} alt={`Image ${index + 1}`} className="h-full w-full object-cover" loading="lazy" />
               </div>
-
-              {/* Info and Actions */}
-              <div className="h-[100px] w-[250px] bg-red-400 backdrop-blur-md rounded-md">
-                {/* Button part and price tag */}
-                <div className="flex items-center justify-between pl-2 pr-2 mt-2">
+              <div className="h-24 w-60 bg-red-400 backdrop-blur-md rounded-md">
+                <div className="flex items-center justify-between p-2">
                   <div className="flex gap-2">
-                    <button>
-                      <img src={Like} alt="Like" />
-                    </button>
-                    <button>
-                      <img src={Comment} alt="Comment" />
-                    </button>
-                    <button>
-                      <img src={Similiar} alt="Similar" />
-                    </button>
-                    <button>
-                      <img src={Download} alt="Download" />
-                    </button>
+                    <button><img src={Like} alt="Like" /></button>
+                    <button><img src={Comment} alt="Comment" /></button>
+                    <button><img src={Similiar} alt="Similar" /></button>
+                    <button><img src={Download} alt="Download" /></button>
                   </div>
-                  {/* Price tag */}
-                  <div className="h-[25px] w-[80px] rounded-lg bg-black text-white flex items-center justify-center">
-                    $220
-                  </div>
+                  <div className="h-6 w-20 rounded-lg bg-black text-white flex items-center justify-center">$220</div>
                 </div>
-
-                {/* Name and description */}
                 <div className="flex flex-col mt-1 ml-2">
-                  <p className="text-[19px] font-semibold">{Username.Username}</p>
+                  <p className="text-lg font-semibold">{Username.Username}</p>
                   <p>{Username.Description}</p>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Textual part */}
-        <div className="w-[50%] flex flex-col items-center justify-center sm:pl-20 sm:pr-20 pl-4 pr-4">
-          <h1 className="text-[#c1121f] lg:text-[35px] sm:text-[30px] text-[25px] text-left font-bold font-Playfair">
-            Explore Boundless Creativity and Innovative Art Crafted to Inspire
-          </h1>
-          <p className="lg:text-[27px] md:text-[20px] text-[16px] text-left font-Carattere text-[#780000]">
-            Dive into a curated collection of unique art pieces that push the boundaries of creativity, designed to evoke emotion and spark imagination.
-          </p>
         </div>
       </div>
     </div>

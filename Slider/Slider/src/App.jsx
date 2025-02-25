@@ -19,11 +19,6 @@ const slides = [
     title: "Home Essentials",
     description: "Discounts on furniture, kitchenware, and more.",
   },
-  {
-    image: "https://images.pexels.com/photos/29304914/pexels-photo-29304914/free-photo-of-snow-covered-mountains-and-fishing-boats-in-arctic-waters.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Mega Fashion Sale",
-    description: "Up to 70% off on top fashion brands.",
-  },
 ];
 
 const FlipkartSlider = () => {
@@ -53,8 +48,8 @@ const FlipkartSlider = () => {
               className="w-full h-[70vh] bg-cover bg-center"
               style={{
                 backgroundImage: `url(${slide.image})`,
-                backgroundPosition: 'center',
-                backgroundSize: 'cover'
+                backgroundPosition: "center",
+                backgroundSize: "cover",
               }}
             ></div>
             {/* Gradient Overlay */}

@@ -13,17 +13,37 @@ export default {
         cookie: ['"Cookie"', 'cursive'],
         // other button like home 
         playfair:['"Playfair Display"', 'serif'],
-        // immerse yourself on art 
-        // trade:['"Trade Winds"', 'cursive'],
         quint:['"Quintessential"', 'cursive'],
         // the next  of innerse
         markazi:['"Markazi Text"', 'serif'],
-        Playfair:["Playfair Display"],
         Carattere:["Carattere"],
         news: [ '"Newspaper"', 'serif'],
-        dmserif:['"DM Serif Text"', 'serif']
+        dmserif:['"DM Serif Text"', 'serif'],
+        Eagle: ["Eagle Lake"],
+        Tapestary: ["Tapestry"],
+        Carattere: ["Carattere"],
+        Playfair: ["Playfair"],
+        Funnel: ["Funnel Display"],
+        Lora: ["'Lora'", "serif"],
+        Poppins: ["'Poppins'", "sans-serif"],
+        GreatVibes: ["GreatVibes"],
+        Lato : ["Lato"],
+        Quicksand:["Quicksand"],
+        Lora:["Lora"],
+        Montserrat:["Montserrat"],
+        Protest:["Protest Revolution"],
+        Quintessential:["Quintessential"],
+        Markazi: ["Markazi Text", "serif"],
+        DM:["DM Serif Text"],
+        Newsreader:["Newsreader"],
+        Unna:["Unna","Serif"],
+        Create: ["Crete Round"],
+        Upright: ["Cormorant Upright"],
+        
     },
 
+   
+    
     keyframes:{
       fadeIn:{
         '0%':{scale: '0'},
@@ -35,8 +55,9 @@ export default {
     }
 ,
     animation: {
-      fadeIn: "fadeIn 1s ease-in-out",
+      fadeIn: "fadeIn 2s ease-in-out",
       slideInUp: "slideInUp 0.8s ease-out",
+     
     },
     keyframes: {
       fadeIn: {
@@ -52,4 +73,4 @@ export default {
     },
   },
   plugins: [],
-}
+}     

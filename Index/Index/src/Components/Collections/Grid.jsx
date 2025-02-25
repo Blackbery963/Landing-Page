@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { Link } from "react-router-dom";
 import Like from '/home/swarnadip/Documents/Index/Collection/Collection/src/images/like.svg'
 import Liked from '/home/swarnadip/Documents/Index/Collection/Collection/src/images/liked.svg'; // Add a filled like icon
 import Comment from '/home/swarnadip/Documents/Index/Collection/Collection/src/images/comment.svg';
 import Similiar from '/home/swarnadip/Documents/Index/Collection/Collection/src/images/four.svg';
 import Download from '/home/swarnadip/Documents/Index/Collection/Collection/src/images/download.svg';
 import Info from '/home/swarnadip/Documents/Index/Collection/Collection/src/images/info.svg';
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 
 const images = [
   "/Image-of-Collection/pexels-eberhardgross-1367192.jpg",
@@ -31,12 +35,17 @@ function Grid() {
     }));
   };
 
+  useEffect(() => {
+    AOS.init({ duration: 800 });
+  }, [])
+
   return (
     <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 bg-maroon py-10 px-4">
       {images.map((src, index) => (
         <div
           key={index}
           className="relative rounded-lg shadow-lg group overflow-hidden break-inside-avoid mb-4"
+          data-aos="fade-up"
           style={{
             backgroundImage: `url(${src})`,
             backgroundSize: "cover",
@@ -50,6 +59,7 @@ function Grid() {
           {/* Container for the buttons */}
           <div className="w-[100%] flex items-center justify-between absolute bottom-3 opacity-0 transition-opacity duration-500 ease-linear group-hover:opacity-100 pl-3 pr-3">
             {/* Profile Div */}
+            <Link to={'/Account'}>
             <div className="h-[2.7vw] w-[2.7vw] bg-red-500 rounded-full"
               onMouseEnter={() => setHoveredButton(`profile-${index}`)}
               onMouseLeave={() => setHoveredButton(null)}
@@ -60,6 +70,7 @@ function Grid() {
                 </div>
               )}
             </div>
+            </Link>
 
             {/* Other Buttons */}
             <div className="flex items-center justify-center gap-3">

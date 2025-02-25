@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Typewriter from "react-typewriter-effect";
 import Menu from "/home/swarnadip/Documents/Index/Profile/Profile/src/Images/9165593_menu_list_icon.svg";
-import Settings from "/home/swarnadip/Documents/Index/Profile/Profile/src/Images/settings.svg";
+import Book from "/home/swarnadip/Documents/Index/Profile/Profile/src/Images/book_24dp_UNDEFINED_FILL0_wght400_GRAD0_opsz24.svg";
 import backgroundImage from "/home/swarnadip/Documents/Index/Menu/Menu/src/Image/freepik-export-20241117064007hmqY.png";
 import Close from '/home/swarnadip/Documents/Index/Profile/Profile/src/Images/close.svg';
 import Facebook from '/home/swarnadip/Documents/Index/Profile/Profile/src/Images/facebook.svg';
@@ -65,14 +65,14 @@ function App() {
   return (
     <div className="w-full h-screen flex flex-col overflow-x-hidden">
       {/* Header */}
-      <div className="w-full h-[120px] bg-gradient-to-t from-transparent to-black/60 sticky backdrop-blur-lg border-b border-black flex items-center justify-between px-6">
+      <div className="w-full h-[120px] sticky backdrop-blur-lg border-b border-black flex items-center justify-between px-6">
         {/* Menu Button */}
-        <div className="h-[45px] w-[45px] bg-black hover:bg-gray-700 rounded-lg flex items-center justify-center">
+        <div className="h-[30px] w-[30px] md:h-[40px] md:w-[40px] lg:h-[45px] lg:w-[45px] bg-black hover:bg-gray-700 rounded-lg flex items-center justify-center">
           <button
             className="h-full w-full flex items-center justify-center"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <img className="h-[30px] w-[30px]" src={Menu} alt="Menu Icon" />
+            <img className="lg:h-[30px] lg:w-[30px] md:h-[25px] md:w-[25px] h-[20px] w-[20px]" src={Menu} alt="Menu Icon" />
           </button>
         </div>
 
@@ -109,9 +109,10 @@ function App() {
         </div>
 
         {/* Settings Button */}
-        <div className="h-[45px] w-[45px] bg-black hover:bg-gray-700 rounded-lg flex items-center justify-center">
-          <button className="h-full w-full flex items-center justify-center">
-            <img className="h-[30px] w-[30px]" src={Settings} alt="Settings Icon" />
+        <div className=" h-[30px] md:h-[35px] lg:h-[40px] w-[100px]  bg-black hover:bg-gray-700 rounded-lg flex items-center justify-center">
+          <button className="h-full w-full flex items-center justify-center gap-2">
+            <p className=" text-white font-Tapestry">Diary</p>
+            <img className="lg:h-[30px] lg:w-[30px] md:h-[25px] md:w-[25px] h-[20px] w-[20px]" src={Book} alt="Settings Icon" />
           </button>
         </div>
       </div>

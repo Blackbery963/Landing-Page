@@ -1,12 +1,11 @@
+
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import footer from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Footer/Footer-images/freepik-export-20240930073049yijq.png'
 import palette from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Footer/Footer-images/pallete.jpg'
-import facebook from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Footer/Footer-images/facebook.svg'
-import instagram from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Footer/Footer-images/instagram.svg'
-import youtube from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Footer/Footer-images/Youtube_icon-icons.com_66802.svg'
-import twitter from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Footer/Footer-images/twitter.svg'
-import linkedin from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Footer/Footer-images/linkedin.svg'
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaLinkedin } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+
 
 function Footer() {
   const foot = {
@@ -20,7 +19,7 @@ function Footer() {
         style={foot}
       >
         {/* Top Navbar */}
-        <nav className="w-full h-[14vh] border-b border-red-50 flex items-center justify-center md:justify-between px-4 md:px-6">
+        <nav className="w-full h-[100px] flex items-center justify-center md:justify-between px-4 md:px-6">
           {/* Logo */}
           <div className="h-[60px] w-[60px] bg-red-400 rounded-full overflow-hidden border-2 border-red-50 hidden md:block">
             <img className="h-full w-full" src={palette} alt="Logo" />
@@ -49,53 +48,72 @@ function Footer() {
           <h1 className="text-center text-lg md:text-2xl font-bold">
             Important Events
           </h1>
-          <div className="h-[25vh] w-[90%] mx-auto mt-4 border border-white rounded-xl"></div>
+          <div className="h-[30vh] w-[90%] mx-auto mt-4 border border-white rounded-xl"></div>
         </div>
-
-        {/* Footer Links */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-6 px-[5vw] mt-8 text-center sm:text-left">
-          {[
-            {
-              title: "Company",
-              links: ["Home", "About Us", "Community", "Blog"],
-            },
-            {
-              title: "Resources",
-              links: ["FAQs", "Reviews", "Help & Support", "Events"],
-            },
-            {
-              title: "Legal",
-              links: ["Terms & Conditions", "Privacy Policy", "License", "Cookies"],
-            },
-            {
-              title: "Product",
-              links: ["Update", "Security"],
-            },
-            {
-              title: "Contact Us",
-              links: [
-                "Berunanpukuriya",
-                "Malikapur",
-                "Kolkata, 700126",
-                "+918617331488",
-              ],
-            },
-          ].map((section, idx) => (
-            <div key={idx}>
-              <h1 className="text-lg md:text-xl font-dmserif text-white">
-                {section.title}
-              </h1>
-              {section.links.map((link, index) => (
-                <p
-                  key={index}
-                  className="text-sm md:text-base font-news font-semibold hover:underline hover:text-cyan-600"
-                >
-                  {link}
-                </p>
-              ))}
-            </div>
-          ))}
-        </div>
+        
+         {/* Footer Links */}
+<div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-6 px-[5vw] mt-8 text-center sm:text-left">
+  {[
+    {
+      title: "Company",
+      links: [
+        { text: "Home", to: "/" },
+        { text: "About", to: "/About" },
+        { text: "Community", to: "/Community" },
+        { text: "Blog", to: "/Blog" }
+      ],
+    },
+    {
+      title: "Resources",
+      links: [
+        { text: "FAQs", to: "/FAQs" },
+        { text: "Reviews", to: "/reviews" },
+        { text: "Help & Support", to: "/support" },
+        { text: "Events", to: "/events" }
+      ],
+    },
+    {
+      title: "Legal",
+      links: [
+        { text: "Terms & Conditions", to: "Legal/Terms_Conditions" },
+        { text: "Privacy Policy", to: "/Legal/Privacy_Policy" },
+        { text: "License", to: "/license" },
+        { text: "Cookies", to: "/cookies" }
+      ],
+    },
+    {
+      title: "Product",
+      links: [
+        { text: "Update", to: "/update" },
+        { text: "Security", to: "/security" }
+      ],
+    },
+    {
+      title: "Contact Us",
+      links: [
+        { text: "Berunanpukuriya" },
+        { text: "Malikapur" },
+        { text: "Kolkata, 700126" },
+        { text: "+918617331488" }
+      ],
+    },
+  ].map((section, idx) => (
+    <div key={idx}>
+      <h1 className="text-lg md:text-xl font-dmserif text-white">
+        {section.title}
+      </h1>
+      {section.links.map((link, index) => (
+        <Link key={index} to={link.to || "#"}>
+          <p
+            className="text-sm md:text-base font-news font-semibold hover:underline hover:text-cyan-600 cursor-pointer"
+          >
+            {link.text}
+          </p>
+        </Link>
+      ))}
+    </div>
+  ))}
+</div>
 
         {/* Contact Info */}
         <div className="flex flex-col items-center justify-center mx-auto mt-10">
@@ -107,16 +125,21 @@ function Footer() {
         <div className="flex items-center justify-center gap-6 mt-4">
           <div className="hidden md:block w-[20vw] h-[2px] bg-black"></div>
           <div className="flex gap-6">
-            {[facebook, instagram, twitter, youtube, linkedin].map(
-              (icon, idx) => (
-                <div
-                  key={idx}
-                  className="h-[40px] w-[40px] sm:h-[50px] sm:w-[50px] rounded-lg cursor-pointer"
-                >
-                  <img className="h-full w-full p-1" src={icon} alt="Social" />
-                </div>
-              )
-            )}
+           
+             {[
+              { Icon: FaFacebook },
+              { Icon: FaInstagram },
+              { Icon: FaXTwitter },
+              { Icon: FaYoutube },
+              { Icon: FaLinkedin }
+            ].map(({ Icon }, idx) => (
+              <div
+                key={idx}
+                className="h-[30px] w-[30px] sm:h-[40px] sm:w-[40px] rounded-lg cursor-pointer flex items-center justify-center transition-transform duration-200 hover:scale-110"
+              >
+                <Icon className="h-full w-full p-1 text-black hover:text-cyan-600" />
+              </div>
+            ))}
           </div>
           <div className="hidden md:block w-[20vw] h-[2px] bg-black"></div>
         </div>
@@ -134,4 +157,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default Footer

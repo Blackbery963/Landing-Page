@@ -35,20 +35,26 @@ function Gallery () {
             <FaHome className="sm:hidden text-green-700 text-2xl" title="Home" />
             </Link>
             
+            <Link to={'/about'}>
             <button className="hidden sm:flex bg-gradient-to-tr from-green-500 to-green-900 text-white px-2 py-1 rounded-md">
               About
             </button>
             <FaInfoCircle className="sm:hidden text-green-700 text-2xl" title="About" />
+            </Link>
 
+            <Link to={'/account'}>
             <button className="hidden sm:flex bg-gradient-to-tr from-green-500 to-green-900 text-white px-2 py-1 rounded-md">
              Account
             </button>
             <FaUser className="sm:hidden text-green-700 text-2xl" title="Contact" />
+            </Link>
 
+            <Link>
             <button className="hidden sm:flex bg-gradient-to-tr from-green-500 to-green-900 text-white px-2 py-1 rounded-md">
               Collections
             </button>
             <FaPalette className="sm:hidden text-green-700 text-2xl" title="Collections" />
+            </Link>
           </div>
         </header>
 

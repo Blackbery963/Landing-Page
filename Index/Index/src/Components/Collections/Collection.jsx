@@ -2,11 +2,16 @@ import { useState,useEffect } from 'react'
 import Grid from './Grid'
 import Slider from './Slider'
 import { Link } from 'react-router-dom'
+import { FaArrowDown } from 'react-icons/fa'
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 
 function Collection() {
   const [count, setCount] = useState(0)
-
+  useEffect(() => {
+    AOS.init({ duration: 800 });
+  }, []);
 
   return (
 //     // the main part for screeec to screeen 
@@ -20,14 +25,16 @@ function Collection() {
     <div className=' w-[100%]'>
       <Grid />
     </div>
-    <Link to='/Gallery'>
-    <div className='bottom-0 left-0 w-[100%] h-[100px] bg-gradient-to-b from-transparent to-black pointer-events-none backdrop-blur-md flex items-center justify-center rounded-md'>     
-     <button className='p-1 rounded-md font-medium text-white backdrop-blur-md bg-white/10 border border-gray-600 cursor-pointer'>
+    
+    <div data-aos='fade-in' className='bottom-0 left-0 w-[98%] mx-auto h-[80px] bg-gradient-to-tr from-[#e5b2997e] to-[#f2bed17c] backdrop-blur flex items-center justify-center rounded-md mt-[-2%]'>
+      <Link to='/Gallery'>
+     <button className=' mx-auto py-2 px-2 bg-white/40 rounded-md font-medium font-Playfair backdrop-blur-md cursor-pointer text-[#212121] flex items-center justify-center gap-1'>
         Explore More
-        <span className='ml-1 text-[20px]'>↓</span>
+        <FaArrowDown/>
       </button>
+      </Link>
     </div>
-    </Link>
+    
   </div>
 </main>
 
@@ -35,4 +42,3 @@ function Collection() {
 }
 
 export default Collection
-// border-white border-[1px]

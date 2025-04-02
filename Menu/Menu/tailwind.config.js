@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        news:['"Newsreader"', 'serif']
+        news:['"Newsreader"', 'serif'],
+        Playfair:['"Playfair Display"', 'serif']
       }
     },
   },

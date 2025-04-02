@@ -21,24 +21,24 @@ function Beginner() {
           {/* Action Buttons */}
           <div className="flex gap-x-2 sm:gap-x-4 md:gap-x-6 text-black font-Playfair font-bold">
             <Link to="/">
-              <button className="px-3 md:px-4 py-2 rounded-md hover:bg-gray-200">
+              <button className="px-2 md:px-4 md:py-2 py-1 rounded-md hover:bg-gray-200">
                 <FaHome className="text-xl sm:hidden" />
                 <span className="hidden sm:inline">Home</span>
               </button>
             </Link>
             <Link to="/About">
-              <button className="px-3 md:px-4 py-2 rounded-md hover:bg-gray-200">
+              <button className="px-2 md:px-4 md:py-2 py-1 rounded-md hover:bg-gray-200">
                 <FaInfoCircle className="text-xl sm:hidden" />
                 <span className="hidden sm:inline">About</span>
               </button>
             </Link>
             <Link to="/Account">
-              <button className="px-3 md:px-4 py-2 rounded-md hover:bg-gray-200">
+              <button className="px-2 md:px-4 md:py-2 py-1 rounded-md hover:bg-gray-200">
                 <FaUser className="text-xl sm:hidden" />
                 <span className="hidden sm:inline">Account</span>
               </button>
             </Link>
-            <button className="px-3 md:px-4 py-2 rounded-md bg-blue-500 text-white">
+            <button className="px-2 md:px-4 md:py-2 py-1 rounded-md bg-blue-500 text-white">
               <FaPalette className="text-xl sm:hidden" />
               <span className="hidden sm:inline">Beginners Gallery</span>
             </button>

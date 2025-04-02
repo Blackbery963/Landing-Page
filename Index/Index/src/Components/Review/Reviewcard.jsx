@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import frontbackground from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Review/Images-of-Review/1646895.jpg';
 import behindbackground from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Review/Images-of-Review/1177739.jpg';
-import { FaFacebookF, FaInstagram, FaTwitter, FaStar } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaStar } from "react-icons/fa";
+import {FaXTwitter} from 'react-icons/fa6'
 
 export default function ReviewCard({ Profileimg, Username, Review }) {
   const [flipped, setFlipped] = useState(false);
@@ -10,7 +11,7 @@ export default function ReviewCard({ Profileimg, Username, Review }) {
   return (
     <div className="w-full flex justify-center py-6">
       <div 
-        className="relative w-[320px] md:w-[450px] h-[280px] perspective-1000"
+        className="relative w-[350px] md:w-[450px] h-[280px] perspective-1000"
         onClick={() => setFlipped(!flipped)}
       >
         {/* Card Inner */}
@@ -45,7 +46,7 @@ export default function ReviewCard({ Profileimg, Username, Review }) {
                 <FaInstagram size={20} />
               </a>
               <a href="#" className="text-gray-400 hover:text-sky-400 transition-all duration-300 border border-gray-500 p-1 rounded-md">
-                <FaTwitter size={20} />
+                <FaXTwitter size={20} />
               </a>
             </div>
           </div>
@@ -55,8 +56,8 @@ export default function ReviewCard({ Profileimg, Username, Review }) {
             className="absolute w-full h-full bg-cover bg-center flex items-center justify-center backface-hidden rounded-xl shadow-xl rotate-y-180"
             style={{ backgroundImage: `url(${behindbackground})` }}
           >
-            <div className='h-[80%] w-[80%] bg-white/10 backdrop-blur-sm border border-gray-400 rounded-md flex items-center justify-center text-center'>
-              <p className='text-[20px] font-Upright text-center text-gray-300'>" {Review} "</p>
+            <div className='lg:h-[80%] lg:w-[80%] w-[90%] h-[90%] bg-white/10 backdrop-blur-sm border border-gray-400 rounded-md flex items-center justify-center text-center p-2'>
+              <p className='text-[20px] font-Newsreader text-center text-gray-300'>" {Review} "</p>
             </div>
           </div>
 

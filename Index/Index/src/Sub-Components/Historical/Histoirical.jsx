@@ -1,12 +1,15 @@
 import { useState, useRef } from 'react';
 import BackImg from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Historical/Historical/travelling-nepal.jpg';
 import { Link } from 'react-router-dom';
-import { FaHome, FaUser, FaInfoCircle, FaPalette } from 'react-icons/fa'; // Importing icons
-
+import { FaHome, FaUser, FaInfoCircle, FaPalette,FaSearch } from 'react-icons/fa'; // Importing icons
+import { motion } from "framer-motion";
 
 function Historical() {
   const [activeButton, setActiveButton] = useState('landscape');
   const contentRef = useRef(null); // Create a ref for the content section
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [query, setQuery] = useState("");
+
 
   const scrollToContent = () => {
     if (contentRef.current) {
@@ -26,10 +29,33 @@ function Historical() {
           </div>
           {/* Navigation Buttons */}
           <div className='flex gap-x-2 sm:gap-x-4 md:gap-x-6 text-black font-Playfair font-bold'>
-            <Link to='/'>
+          <motion.div
+          className="flex items-center bg-white/40 border border-gray-300 rounded-lg shadow-md overflow-hidden"
+          initial={{ width: "40px" }}
+          animate={{ width: isExpanded ? "200px" : "40px" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <motion.input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className={`px-4 py-2 w-full outline-none text-gray-700 bg-transparent ${
+              isExpanded ? "block" : "hidden"
+            }`}
+            placeholder="Search..."
+          />
+          <motion.button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="p-2 text-gray-600 hover:text-gray-800"
+            whileTap={{ scale: 0.9 }}
+          >
+            <FaSearch />
+          </motion.button>
+        </motion.div>
+          <Link to='/'>
             <button 
-              className={`px-3 md:px-4 py-2 rounded-md transition-all ${activeButton === 'home' ? 'bg-blue-500 text-white' : 'hover:bg-gradient-to-br hover:from-gray-100 hover:to-gray-600'}`}
-              onClick={() => setActiveButton('home')}
+              className={`px-2 md:px-4 py-2 rounded-md transition-all border-gray-400 border hover:bg-gray-600/50`}
+              
             >
               <FaHome className="text-xl sm:hidden" /> {/* Icon for small screens */}
               <span className="hidden sm:inline">Home</span> {/* Text for larger screens */}
@@ -38,7 +64,7 @@ function Historical() {
 
             <Link to='/About'> 
             <button 
-              className={`px-3 md:px-4 py-2 rounded-md transition-all ${activeButton === 'about' ? 'bg-blue-500 text-white' : 'hover:bg-gradient-to-br hover:from-gray-100 hover:to-gray-600'}`}
+              className={`px-2 md:px-4 py-2 rounded-md transition-all border-gray-400 border hover:bg-gray-600/50`}
               onClick={() => setActiveButton('about')}
             >
               <FaInfoCircle className="text-xl sm:hidden" />
@@ -48,7 +74,7 @@ function Historical() {
 
            <Link to='/Account'>
            <button 
-              className={`px-3 md:px-4 py-2 rounded-md transition-all ${activeButton === 'account' ? 'bg-blue-500 text-white' : 'hover:bg-gradient-to-br hover:from-gray-100 hover:to-gray-600'}`}
+              className={`px-2 md:px-4 py-2 rounded-md transition-all border-gray-400 border hover:bg-gray-600/50`}
               onClick={() => setActiveButton('account')}
             >
               <FaUser className="text-xl sm:hidden" />

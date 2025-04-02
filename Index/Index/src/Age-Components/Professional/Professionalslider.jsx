@@ -110,4 +110,3 @@ const Professionalslider = () => {
 };
 
 export default Professionalslider;
-//  "https://images.pexels.com/photos/29892850/pexels-photo-29892850/free-photo-of-boston-public-garden-winter-wonderland.jpeg"

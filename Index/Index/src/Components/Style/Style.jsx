@@ -24,11 +24,11 @@ function Style() {
           <Link to={'/Watercolor'}><Item name="Watercolor" backImg={Pic_5} /></Link>
           <Link to={'/Abstract'}><Item name="Abstract" backImg={Pic_6} /></Link>
           <Link to={'/Historical'}><Item name="Historical Art" backImg={Pic_8} /></Link>
-          <Link to={'/Modern'}><Item name="Modern Art" backImg={Pic_7} /></Link>
+          {/* <Link to={'/Modern'}><Item name="Modern Art" backImg={Pic_7} /></Link> */}
       </div>
 
       {/* Button at the bottom-right corner */}
-      <div className="w-full flex justify-end md:pr-8 pr-3">
+      <div className="w-full flex justify-end md:pr-6 pr-3 ">
         <Link to={'/Category'}>
           <button className="h-10 bg-black text-white px-6 rounded-xl font-semibold hover:bg-slate-700 hidden md:block">
             Browse More   

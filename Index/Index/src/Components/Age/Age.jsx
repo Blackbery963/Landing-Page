@@ -53,7 +53,7 @@ function Age() {
             <p className="text-sm lg:text-base font-Newsreader mt-2 text-[#C4DAD2]">
               Established with regular exhibitions and growing recognition.
             </p>
-           <Link className='w-full flex justify-center'>
+           <Link to={"/Mid_Carrier"} className='w-full flex justify-center'>
            <button className="mt-4 w-[60%] bg-green-950 text-sm lg:text-base text-gray-200 py-2 rounded-lg hover:bg-green-900 border border-gray-400">
               Explore
             </button>
@@ -90,9 +90,11 @@ function Age() {
             <p className="text-sm lg:text-base font-Newsreader mt-2 text-[#C4DAD2]">
               Learning and developing skills, often within formal education programs.
             </p>
+            <Link className='w-full flex justify-center' to={'/Student'}>
             <button className="mt-4 w-[60%] bg-green-950 text-sm lg:text-base text-gray-200 py-2 rounded-lg hover:bg-green-900 border border-gray-400">
               Explore
             </button>
+            </Link>
             <div className="mt-4 h-32 w-32 mx-auto rounded-md overflow-hidden">
               <img className="h-full w-full object-cover" src={Student} alt="Student" />
             </div>
@@ -105,9 +107,11 @@ function Age() {
               Create art for personal enjoyment, often without formal training or professional
               aspirations.
             </p>
+            <Link className='w-full flex justify-center' to={'/Amatuer'}>
             <button className="mt-4 w-[60%] bg-green-950 text-sm lg:text-base text-gray-200 py-2 rounded-lg hover:bg-green-900 border border-gray-400">
               Explore
             </button>
+            </Link>
             <div className="mt-4 h-32 w-32 mx-auto rounded-md overflow-hidden">
               <img className="h-full w-full object-cover" src={Amatuer} alt="Amateur" />
             </div>

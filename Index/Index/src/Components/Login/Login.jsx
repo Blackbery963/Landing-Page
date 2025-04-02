@@ -49,13 +49,13 @@ function Login() {
 
           <div className='w-full max-w-xs mt-6'>
             <h1 className='text-lg lg:text-[1.6vw] font-playfair font-bold'>Username</h1>
-            <input type='text' placeholder='Username' className='mt-2 w-full h-10 rounded-lg pl-4 bg-[#ffffff59] backdrop-blur-md placeholder-black font-unna shadow-md border border-white' />
+            <input type='text' placeholder='Username' className='mt-2 w-full h-10 rounded-lg pl-4 bg-[#ffffff59] backdrop-blur-md placeholder-black font-unna shadow-md border border-white outline-none' />
 
             <h1 className='mt-6 text-lg lg:text-[1.6vw] font-playfair font-bold'>E-mail</h1>
-            <input type='text' placeholder='E-mail' className='mt-2 w-full h-10 rounded-lg pl-4 bg-[#ffffff59] backdrop-blur-md placeholder-black font-unna shadow-md border border-white' value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type='text' placeholder='E-mail' className='mt-2 w-full h-10 rounded-lg pl-4 bg-[#ffffff59] backdrop-blur-md placeholder-black font-unna shadow-md border border-white outline-none' value={email} onChange={(e) => setEmail(e.target.value)} />
 
             <h1 className='mt-6 text-lg lg:text-[1.6vw] font-playfair font-bold'>Password</h1>
-            <input type='password' placeholder='Password' className='mt-2 w-full h-10 rounded-lg pl-4 bg-[#ffffff59] backdrop-blur-md placeholder-black font-unna shadow-md border border-white' value={password}  onChange={(e) => setPassword(e.target.value)}/>
+            <input type='password' placeholder='Password' className='mt-2 w-full h-10 rounded-lg pl-4 bg-[#ffffff59] backdrop-blur-md placeholder-black font-unna shadow-md border border-white outline-none' value={password}  onChange={(e) => setPassword(e.target.value)}/>
           </div>
 
           

@@ -22,9 +22,11 @@ function Diaryland() {
             </button>
             <FaHome className="sm:hidden text-green-700 text-2xl" title="Home" />
           </Link>
+          <Link to={"/About"}>
           <button className="hidden sm:flex bg-gradient-to-tr from-amber-700 to-amber-900 text-white px-2 py-1 rounded-md">
             About
           </button>
+          </Link>
           <FaInfoCircle className="sm:hidden text-green-700 text-2xl" title="About" />
           <Link to={"/Account"}>
             <button className="hidden sm:flex bg-gradient-to-tr from-amber-700 to-amber-900 text-white px-2 py-1 rounded-md">

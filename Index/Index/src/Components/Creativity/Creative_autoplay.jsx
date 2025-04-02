@@ -7,7 +7,7 @@ const slides = [
   {
     image: "https://images.pexels.com/photos/29892850/pexels-photo-29892850/free-photo-of-boston-public-garden-winter-wonderland.jpeg",
     title: "Top Deals on Electronics!",
-    description: "Save big on the latest gadgets. Limited time offer.",
+    description: "Save big on the latest gadgets. ",
   },
   {
     image: "https://images.pexels.com/photos/29304914/pexels-photo-29304914/free-photo-of-snow-covered-mountains-and-fishing-boats-in-arctic-waters.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -17,7 +17,7 @@ const slides = [
   {
     image: "https://images.pexels.com/photos/15566467/pexels-photo-15566467/free-photo-of-pavement-along-water-pond-in-city.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Home Essentials",
-    description: "Discounts on furniture, kitchenware, and more.",
+    description: "Discounts on furniture, kitchenware, .",
   },
   {
     image: "https://images.pexels.com/photos/3748174/pexels-photo-3748174.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -102,13 +102,13 @@ const CreativeAutoplay = () => {
   };
 
   return (
-    <div className="h-full w-full gap-x-8 overflow-hidden relative mx-auto">
+    <div className="h-full w-full gap-x-8 overflow-hidden relative mx-auto ">
       <Slider {...settings}>
         {slides.map((slide, index) => (
-          <div key={index} className="relative px-2">
+          <div key={index} className="relative px-2 overflow-hidden">
             {/* Slides background */}
             <div
-              className="w-full md:h-[27vh] h-[25vh] bg-cover bg-center rounded-lg shadow-lg"
+              className=" w-full md:h-[27vh] h-[25vh] bg-cover bg-center rounded-lg shadow-lg overflow-hidden"
               style={{
                 backgroundImage: `url(${slide.image})`,
                 backgroundPosition: 'center',
@@ -117,8 +117,8 @@ const CreativeAutoplay = () => {
               aria-label={`Slide ${index + 1}`}
             ></div>
             {/* Slide Content */}
-            <div className="absolute bottom-10 left-10 text-white z-10">
-              <h2 className="text-xl md:text-2xl font-bold mb-4 animate-fadeInUp">
+            <div className="absolute w-fit bottom-4 left-4 text-white z-10 bg-black/15 p-4 rounded-lg backdrop-blur-sm flex flex-col gap-2">
+              <h2 className="text-xl md:text-2xl font-bold animate-fadeInUp">
                 {slide.title}
               </h2>
               <p className="text-sm md:text-base animate-fadeInUp delay-300">

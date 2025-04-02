@@ -4,12 +4,14 @@ import Painting1 from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Compo
 import Painting2 from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Landscape/Landscape-images/img19.jpg';
 import Painting3 from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Landscape/Landscape-images/img20.jpg';
 import { Link } from 'react-router-dom';
-import { FaHome, FaUser, FaInfoCircle, FaPalette } from 'react-icons/fa'; // Importing icons
-
+import { FaHome, FaUser, FaInfoCircle, FaPalette,FaSearch } from 'react-icons/fa'; // Importing icons
+import { motion } from "framer-motion";
 
 function Landscape() {
   const [activeButton, setActiveButton] = useState('landscape');
   const contentRef = useRef(null); // Create a ref for the content section
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [query, setQuery] = useState("");
 
   const scrollToContent = () => {
     if (contentRef.current) {
@@ -29,10 +31,33 @@ function Landscape() {
           </div>
           {/* Navigation Buttons */}
           <div className='flex gap-x-2 sm:gap-x-4 md:gap-x-6 text-black font-Playfair font-bold'>
-            <Link to='/'>
+          <motion.div
+          className="flex items-center bg-white/40 border border-gray-300 rounded-lg shadow-md overflow-hidden"
+          initial={{ width: "40px" }}
+          animate={{ width: isExpanded ? "200px" : "40px" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <motion.input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className={`px-4 py-2 w-full outline-none text-gray-700 bg-transparent ${
+              isExpanded ? "block" : "hidden"
+            }`}
+            placeholder="Search..."
+          />
+          <motion.button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="p-2 text-gray-600 hover:text-gray-800"
+            whileTap={{ scale: 0.9 }}
+          >
+            <FaSearch />
+          </motion.button>
+        </motion.div>
+          <Link to='/'>
             <button 
-              className={`px-3 md:px-4 py-2 rounded-md transition-all ${activeButton === 'home' ? 'bg-blue-500 text-white' : 'hover:bg-gradient-to-br hover:from-gray-100 hover:to-gray-600'}`}
-              onClick={() => setActiveButton('home')}
+              className={`px-2 md:px-4 py-2 rounded-md transition-all border-gray-400 border hover:bg-gray-600/50`}
+              
             >
               <FaHome className="text-xl sm:hidden" /> {/* Icon for small screens */}
               <span className="hidden sm:inline">Home</span> {/* Text for larger screens */}
@@ -41,7 +66,7 @@ function Landscape() {
 
             <Link to='/About'> 
             <button 
-              className={`px-3 md:px-4 py-2 rounded-md transition-all ${activeButton === 'about' ? 'bg-blue-500 text-white' : 'hover:bg-gradient-to-br hover:from-gray-100 hover:to-gray-600'}`}
+              className={`px-2 md:px-4 py-2 rounded-md transition-all border-gray-400 border hover:bg-gray-600/50`}
               onClick={() => setActiveButton('about')}
             >
               <FaInfoCircle className="text-xl sm:hidden" />
@@ -51,7 +76,7 @@ function Landscape() {
 
            <Link to='/Account'>
            <button 
-              className={`px-3 md:px-4 py-2 rounded-md transition-all ${activeButton === 'account' ? 'bg-blue-500 text-white' : 'hover:bg-gradient-to-br hover:from-gray-100 hover:to-gray-600'}`}
+              className={`px-2 md:px-4 py-2 rounded-md transition-all border-gray-400 border hover:bg-gray-600/50`}
               onClick={() => setActiveButton('account')}
             >
               <FaUser className="text-xl sm:hidden" />
@@ -92,51 +117,6 @@ function Landscape() {
     </p>
   </div>
   {/* Image Grid Section */}
-  <div className='flex overflow-x-scroll overflow-y-hidden w-[60%] gap-8 mx-auto'>
-    <div className='group relative overflow-hidden rounded-lg shadow-lg flex-shrink-0'>
-      <img src={Painting1} alt='Landscape Painting 1' className='sm:w-[400px] sm:h-[400px] h-[300px] w-[300px] object-cover transform group-hover:scale-110 transition-transform duration-300' />
-      <div className='absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-        <p className='text-white font-bold pl-8 pr-8'>"The painter has the universe in their mind and hands." </p>
-        <p className='text-white font-bold pl-8 pr-8 text-left'>-Leonardo da Vinchi</p>
-      </div>
-    </div>
-    <div className='group relative overflow-hidden rounded-lg shadow-lg flex-shrink-0'>
-      <img src={Painting2} alt='Landscape Painting 2' className='sm:w-[400px] sm:h-[400px] h-[300px] w-[300px] object-cover transform group-hover:scale-110 transition-transform duration-300' />
-      <div className='absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-        <p className='text-white font-bold pl-8 pr-8'>" Landscape painting is the art of observation, a journey into the heart of nature." </p>
-        <p className='text-white font-bold text-left'>-John Constable</p>
-      </div>
-    </div>
-    <div className='group relative overflow-hidden rounded-lg shadow-lg flex-shrink-0'>
-      <img src={Painting3} alt='Landscape Painting 3' className='sm:w-[400px] sm:h-[400px] h-[300px] w-[300px] object-cover transform group-hover:scale-110 transition-transform duration-300' />
-      <div className='absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-        <p className='text-white font-bold pl-8 pr-8'>"There is nothing in the world of art like the songs mother nature sings to us."</p>
-        <p className='text-white font-bold'>– Alfred Sisley</p>
-      </div>
-    </div>
-    {/* Additional images can be added here */}
-    <div className='group relative overflow-hidden rounded-lg shadow-lg flex-shrink-0'>
-      <img src={Painting1} alt='Landscape Painting 4' className='sm:w-[400px] sm:h-[400px] h-[300px] w-[300px] object-cover transform group-hover:scale-110 transition-transform duration-300' />
-      <div className='absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-      <p className='text-white font-bold pl-8 pr-8'>"To paint a landscape is to capture a world beyond the visible." </p>
-      <p className='text-white font-bold'>– Eugene Boudin</p>
-      </div>
-    </div>
-    <div className='group relative overflow-hidden rounded-lg shadow-lg flex-shrink-0'>
-      <img src={Painting2} alt='Landscape Painting 5' className='sm:w-[400px] sm:h-[400px] h-[300px] w-[300px] object-cover transform group-hover:scale-110 transition-transform duration-300' />
-      <div className='absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-      <p className='text-white font-bold pl-8 pr-8'>"Landscape art shows us how light and shadow dance in harmony with life." </p>
-      <p className='text-white font-bold'>– J.M.W. Turner</p>
-      </div>
-    </div>
-    <div className='group relative overflow-hidden rounded-lg shadow-lg flex-shrink-0'>
-      <img src={Painting3} alt='Landscape Painting 6' className='sm:w-[400px] sm:h-[400px] h-[300px] w-[300px] object-cover transform group-hover:scale-110 transition-transform duration-300' />
-      <div className='absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-      <p className='text-white font-bold pl-8 pr-8'>"A landscape painting is a meditation; it is where time stands still." </p>
-      <p className='text-white font-bold'>– Claude Monet</p>
-      </div>
-    </div>
-  </div>
 </section>
         {/* all images */}
        <section>

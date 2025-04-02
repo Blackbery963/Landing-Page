@@ -1,78 +1,135 @@
 import { useState } from 'react'
 import './App.css'
-import backgroundImage from '/home/swarnadip/Documents/Index/Menu/Menu/src/Image/freepik-export-20241117064007hmqY.png'
+import Close from '/home/swarnadip/Documents/Index/Menu/Menu/src/Image/close_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg'
+import { AiOutlineHeart, AiFillHeart, } from "react-icons/ai"; // Import heart icons
+import { FaDownload, FaShare, FaThumbsUp } from "react-icons/fa"; // Import download icon
+import img1 from '/home/swarnadip/Documents/Index/Menu/Menu/src/Image/freepik-export-20241117064007hmqY.png'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const images = [
+    "https://images.unsplash.com/photo-1634170380004-3b3b3b3b3b3b",
+  ]
+  const [lovedImages, setLovedImages] = useState(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem("favoriteImages")) || [];
+    const initialLoved = {};
+    images.forEach((img, index) => {
+      initialLoved[index] = storedFavorites.includes(img);
+    });
+    return initialLoved;
+  });
 
+  // Function to toggle favorite status
+  const toggleLove = (index) => {
+    setLovedImages((prevLovedImages) => {
+      const isCurrentlyLoved = prevLovedImages[index];
+      const updatedLovedImages = { ...prevLovedImages, [index]: !isCurrentlyLoved };
+  
+      const storedFavorites = JSON.parse(localStorage.getItem("favoriteImages")) || [];
+      let updatedFavorites;
+  
+      if (!isCurrentlyLoved) {
+        updatedFavorites = [...new Set([...storedFavorites, images[index]])]; 
+      } else {
+        updatedFavorites = storedFavorites.filter(img => img !== images[index]);
+      }
+  
+      localStorage.setItem("favoriteImages", JSON.stringify(updatedFavorites));
+  
+      return updatedLovedImages;
+    });
+  };
 
-  const backgroundImg = {
-    backgroundImage: `url(${backgroundImage})`,
-   
-  }
+  const downloadImage = () => {
+    const link = document.createElement('a'); // Create an anchor element
+    link.href = img1; // Set the image URL
+    link.download = 'artwork.png'; // Name of the file
+    document.body.appendChild(link);
+    link.click(); // Simulate click to download
+    document.body.removeChild(link); // Remove the element after triggering the download
+  };
 
   return (
-    <menu className='h-[85vh] w-[22vw] ml-6 mt-8 rounded-[1vw] overflow-hidden'>
+    <div className='main-container w-full max-w-[1200px] h-auto mx-auto relative mt-8 pl-4 pb-4'>   
+    <div className='lg:w-[95%] md:w-[94%] sm:w-[92%] w-[90%] bg-[#edf2fa] h-full border rounded-md relative'>
+      {/* the top section */}
+    <div className='flex justify-between items-center h-[80px] px-4'>
+      {/* the profile  */}
+      <div className='flex gap-2 items-center'>
+        <div className='lg:w-[70px] lg:h-[70px] w-[50px] h-[50px] rounded-full bg-black'></div>
+        <div>
+          <h1 className='lg:text-[25px] text-[20px] font-Playfair font-semibold'>Username</h1>
+          <button className=' border border-neutral-600 rounded-lg px-2 font-serif font-medium'>Follow</button>
+        </div>
+      </div>
 
-      {/* the first part */}
-      <div className='h-[20vh] w-[100%] bg-[#000000de] opacity-90 flex items-center justify-between pl-3 pr-3'>
+    {/* Action bitton */}
+    <div className=' flex items-center gap-2'>
+      {/* <button className='w-full px-2 py-1 rounded-lg border border-gray-500 flex items-center gap-1'>
+      <span className='lg:block hidden'>Favourite</span>  
+      <AiFillHeart className='text-[#f50538]'/>
+    </button> */}
+   <button 
+  className='w-full px-2 py-1 rounded-lg border border-gray-500 flex items-center gap-1'
+  onClick={() => toggleLove(0)} // Toggles love state for index 0
+>
+  <span className='lg:block hidden'>Favourite</span>  
+  {lovedImages[0] ? (
+    <AiFillHeart className="text-[#f50538]" />  // Filled heart when favorited
+  ) : (
+    <AiOutlineHeart className="text-gray-800" /> // Empty heart when not favorited
+  )}
+    </button>
 
-        {/* the username image div */}
-        <div className='h-[7vw] w-[7vw] bg-white rounded-full border-[1.5px] text-[7vw] flex justify-center items-center'>
-        <i class="ri-account-circle-fill"></i>
+      <button className='w-full px-2 py-1 rounded-lg border border-gray-500 flex items-center gap-1'
+      onClick={downloadImage}
+      >
+       <span className='lg:block hidden'>Download</span>
+       <FaDownload/>
+      </button>
+      <button className='w-full px-1 py-1 rounded-lg border border-gray-500'>
+        <img src={Close} alt="Close" />
+      </button>
+    </div>
+    </div>
+    {/* the image section  */}
+    <div className='w-[95%] lg:w-[85%] lg:h-[500px] md:h-[450px] h-[400px] rounded-md mx-auto bg-black/10 mt-3'>
+    <img className=' h-full w-full object-contain' src={img1} alt="" />
+    </div>
+    {/* the bottom section */}
+    <div  className=' flex flex-col gap-y-2 mt-2'>
+      {/* the upper body */}
+      <div className=' flex lg:items-center items-start justify-between lg:flex-row flex-col-reverse lg:px-[7.5%] px-[2.5%]'>
+        <div className=' mt-2 lg:mt-0'>
+          <h1 className='lg:text-[20px] text-[18px] font-Playfair font-semibold'>Title</h1>
+          <p className='lg:text-[18px] text-[16px] font-sans'>Description</p>
+        </div>
+
+        <div className='flex gap-2'>
+          <div className='w-full lg:px-2 px-1 rounded-md border border-gray-500 flex items-center gap-1'>
+          <span className=' lg:block hidden font-serif'>Likes:</span> <span className='lg:block hidden'>{1234}</span>
+          <FaThumbsUp className=' lg:hidden block'/><span className=' lg:hidden block'>{1234}</span>
           </div>
-        {/* the description div  */}
-        <div className=' ml-[-2vw] gap-1'>
-          <h1 className='text-white font-news text-[1.4vw]'>USERNAME</h1>
-          <p className='text-white font-news text-[.8vw]'>xyv123@email.com</p>
-          <p className='text-white font-news text-[.8vw]'>Follower:122</p>
-          <button className='text-white font-news text-[.8vw]'>Visit Profile</button>
-        </div>
-        {/* the cross div */}
-        <div className='h-[1.5vw] w-[1.5vw] bg-white text-black text-[1.5vw] flex items-center justify-center rounded-full mt-[-15vh]'>
-        <i class="ri-close-fill"></i>
+
+          <button className='w-full lg:px-2 px-1 rounded-md border border-gray-500 flex items-center gap-1'
+         
+          >
+            <span className='lg:block hidden font-serif'>Downloads:</span><span className='lg:block hidden'>{1234}</span>
+            <FaDownload className=' lg:hidden block'/><span className=' lg:hidden block'>{1234}</span>
+          </button>
+          <button className='w-full lg:px-2 px-1 rounded-md border border-gray-500 flex items-center gap-1'>
+            <span className='lg:block hidden font-serif'>Shares:</span><span className='lg:block hidden'>{1234}</span>
+            <FaShare className=' lg:hidden block'/><span className=' lg:hidden block'>{1234}</span>
+          </button>
         </div>
       </div>
+{/* the lower body */}
+     <div className='lg:px-[7.5%] px-[2.5%] pb-4 flex items-center'>
+     <h1 className='lg:text-[18px] text-[16px] font-Playfair font-bold'>Updated on:<span className='font-sans font-normal text-[16px] pl-1'>{19}</span></h1>
+     </div>
+    </div>
 
-
-
-
-
-
-      {/* the border between this two div */}
-      <div className='w-[100%] h-[1.5px] bg-white'></div>
-
-
-
-
-
-
-
-
-
-
-      {/* the next part */}
-      <div className='h-[63vh] w-[100%] bg-center bg-cover flex flex-col items-center justify-center gap-6' style={backgroundImg} >
-        {/* home */}
-        <div class ='home' className=''>Home</div>
-        {/* gallery div */}
-        <div className='h-[2.8vh] w-[5.5vw] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border-[1px] hover:border-gray-500 flex justify-center items-center rounded-lg'>Gallery</div>
-        {/* category div */}
-        <div className='h-[2.8vh] w-[5.5vw] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border-[1px] hover:border-gray-500 flex justify-center items-center rounded-lg'> Cetagory</div>
-        {/* Account */}
-        <div className='h-[2.8vh] w-[5.5vw] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border-[1px] hover:border-gray-500 flex justify-center items-center rounded-lg'>My Account</div>
-        {/* community */}
-        <div className='h-[2.8vh] w-[5.5vw] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border-[1px] hover:border-gray-500 flex justify-center items-center rounded-lg'>Community</div>
-        {/* blog */}
-        <div className='h-[2.8vh] w-[5.5vw] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border-[1px] hover:border-gray-500 flex justify-center items-center rounded-lg'>Blog</div>
-        {/* faqs */}
-        <div className='h-[2.8vh] w-[5.5vw] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border-[1px] hover:border-gray-500 flex justify-center items-center rounded-lg'>FAQs</div>
-        {/* help */}
-        <div className='h-[2.8vh] w-[5.5vw] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border-[1px] hover:border-gray-500 flex justify-center items-center rounded-lg'>Help</div>
-        {/* feedback */}
-        <div className='h-[2.8vh] w-[5.5vw] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border-[1px] hover:border-gray-500 flex justify-center items-center rounded-lg'>Feedback</div>
-      </div>
-    </menu>
+  </div>
+</div>
   )
 }
 

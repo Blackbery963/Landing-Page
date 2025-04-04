@@ -1,5 +1,8 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Item from './Item';
 import Pic_1 from "/home/swarnadip/Documents/Index/Index/Index/src/Components/Category/Category-images/no-1.png";
 import Pic_2 from "/home/swarnadip/Documents/Index/Index/Index/src/Components/Category/Category-images/no-3.jpg";
@@ -13,8 +16,13 @@ import { FaArrowRight } from 'react-icons/fa';
 
 
 function Style() {
+
+    useEffect(() => {
+      AOS.init({ duration: 800 });
+    }, []);
+
   return (
-    <div className="w-full h-auto flex flex-col gap-3 relative px-1">
+    <div data-aos="fade-left" className="w-full h-auto flex flex-col gap-3 relative px-1">
       {/* Scrollable Container */}
       <div className="flex items-center gap-x-4 p-4 w-full overflow-x-auto hide-scrollbar">
           <Link to={'/Landscape'}><Item name="Landscape" backImg={Pic_1} /></Link>

@@ -99,20 +99,61 @@ function Grid() {
     setLovedImages(syncedLoved);
   }, []);
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Check out this artwork!",
-          text: "I found this amazing artwork on Painters' Diary. Take a look!",
-          url: window.location.href,
-        })
-        .then(() => console.log("Shared successfully!"))
-        .catch((error) => console.log("Sharing failed:", error));
-    } else {
-      alert("Your browser does not support the Share feature.");
+  // const handleShare = () => {
+  //   if (navigator.share) {
+  //     navigator
+  //       .share({
+  //         title: "Check out this artwork!",
+  //         text: "I found this amazing artwork on Painters' Diary. Take a look!",
+  //         url: window.location.href,
+  //       })
+  //       .then(() => console.log("Shared successfully!"))
+  //       .catch((error) => console.log("Sharing failed:", error));
+  //   } else {
+  //     alert("Your browser does not support the Share feature.");
+  //   }
+  // };
+
+  const handleShare = async () => {
+    // Define share data
+    const shareData = {
+      title: "Check out this artwork!",
+      text: "I found this amazing artwork on Painters' Diary. Take a look!",
+      url: window.location.href,
+    };
+  
+    try {
+      // Check if Web Share API is supported
+      if (!navigator.share) {
+        // Fallback for unsupported browsers
+        const fallbackMessage = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+        await navigator.clipboard.writeText(fallbackMessage);
+        alert("Share not supported. Link copied to clipboard instead!");
+        console.log("Fallback: Copied to clipboard");
+        return;
+      }
+  
+      // Attempt to share using Web Share API
+      await navigator.share(shareData);
+      console.log("Shared successfully!");
+    } catch (error) {
+      // Handle specific errors or provide fallback
+      if (error.name === "AbortError") {
+        console.log("User canceled the share action.");
+      } else {
+        console.error("Sharing failed:", error);
+        // Fallback to clipboard if share fails (e.g., permission denied)
+        try {
+          await navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
+          alert("Sharing failed, but the link was copied to your clipboard!");
+        } catch (clipError) {
+          console.error("Clipboard fallback failed:", clipError);
+          alert("Sharing unavailable. Please copy the URL manually: " + shareData.url);
+        }
+      }
     }
   };
+
 
   return (
     <>
@@ -284,8 +325,8 @@ function Grid() {
                   </button>
                   <button 
                     className='w-full px-2 py-1 rounded-md border border-gray-500 flex items-center gap-1'
-                    onClick={handleShare}
-                  >
+                    onClick={handleShare}>
+                      
                     <span className='lg:block hidden font-serif'>Share</span>
                     <PiShareFatThin className='' />
                   </button>

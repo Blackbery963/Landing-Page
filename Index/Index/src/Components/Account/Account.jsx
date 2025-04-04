@@ -10,6 +10,9 @@ import { FiUpload, FiEdit } from 'react-icons/fi';
 import { IoIosLogOut } from 'react-icons/io';
 import { CiCamera, CiEdit } from 'react-icons/ci';
 import { FaXTwitter } from 'react-icons/fa6';
+import { FaHome, FaHeart, FaDownload, FaUsers, FaCrown, FaCog } from "react-icons/fa";
+import { FaUserPlus, FaUser, FaBookOpen, FaTimes,FaImages,FaList,FaBlog,FaQuestionCircle,FaHandsHelping,FaComment  } from "react-icons/fa";
+
 
 function Account() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -90,9 +93,21 @@ function Account() {
     Blog: "/blog",
     FAQs: "/FAQs",
     Help: "/help",
-    Feedback: "/feedback",
+    Feedback: "/Resources/Feedback",
   };
 
+    const routeIcons = {
+      Home: <FaHome />,
+      Gallery: <FaImages />,
+      Category: <FaList />,
+      "My Account": <FaUser />,
+      Community: <FaUsers />,
+      Blog: <FaBlog />,
+      FAQs: <FaQuestionCircle />,
+      Help: <FaHandsHelping />,
+      Feedback: <FaComment />,
+    };
+    
   const backgroundImg = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
@@ -262,7 +277,7 @@ function Account() {
       </header>
 
       {/* Sliding Menu */}
-      <div
+       <div
         className={`fixed top-4 left-4 lg:w-[400px] sm:w-[375px] w-[350px] overflow-hidden h-auto bg-white shadow-lg rounded-xl transition-all duration-1000 ease-in-out ${isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}`}
         style={{ zIndex: 9999 }}
       >
@@ -285,7 +300,7 @@ function Account() {
             </Link>
           </div>
           <div
-            className="h-[22px] w-[22px] bg-black text-white flex items-center justify-center rounded-xl cursor-pointer absolute right-2 top-2"
+            className="h-[22px] w-[22px] bg-black text-white flex items-center justify-center rounded-md cursor-pointer absolute right-2 top-2"
             onClick={() => setIsMenuOpen(false)}
           >
             ✕
@@ -300,13 +315,16 @@ function Account() {
             <Link
               to={routes[item]}
               key={item}
-              className="h-[2.8vh] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border hover:border-gray-500 flex justify-center items-center rounded-lg px-2"
+              className="h-[2.8vh] w-[40%] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border hover:border-gray-500 flex justify-start items-center rounded-lg px-2 pl-4 gap-2"
             >
-              {item}
+              {/* {item} */}
+              {routeIcons[item]} 
+              <span>{item}</span> 
             </Link>
           ))}
         </div>
-      </div>
+        </div>
+
 
       {/* Cover Image Section */}
       <div className="w-[95%] h-[460px] flex items-center justify-center relative mt-[100px] overflow-hidden mx-auto rounded-b-md">

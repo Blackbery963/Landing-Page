@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaCamera, FaPlus, FaBook, FaInfoCircle, FaHome, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB in bytes
+const MAX_FILE_SIZE = 25 * 1024 * 1024; // 50MB in bytes
 
 function UploadComponent({ index, onImageChange, onRemoveImage, image, classification, error }) {
   const handleImageChange = (event) => {
@@ -124,23 +124,23 @@ function UploadComponent({ index, onImageChange, onRemoveImage, image, classific
       <h1 className="text-white font-semibold font-serif">Tags</h1>
 
       <select
-        className="h-10 lg:w-[60%] md:w-[75%] sm:w-[85%] w-[95%] px-3 border border-gray-500 rounded-md bg-transparent font-Funnel text-white focus:ring-1 focus:ring-[#fc8e97] cursor-pointer"
+        className="h-10 lg:w-[60%] md:w-[75%] sm:w-[85%] w-[95%] outline-none focus:border-none px-3 border border-gray-500 rounded-md bg-transparent font-Funnel text-white focus:ring-1 focus:ring-[#fc8e97] cursor-pointer"
         onChange={handleTagChange}
         value={isCustom ? "custom" : selectedTag}
       >
         <option value="" disabled hidden>Choose a tag...</option>
+        <option className="bg-[#9909326c] text-white" value="custom">Create New Tag</option>
         <option className="bg-[#9909326c] text-white">#Abstract</option>
         <option className="bg-[#9909326c] text-white">#Landscape</option>
         <option className="bg-[#9909326c] text-white">#Portrait</option>
         <option className="bg-[#9909326c] text-white">#Surrealism</option>
-        <option className="bg-[#9909326c] text-white" value="custom">Create New Tag</option>
       </select>
 
       {isCustom && (
         <input
           type="text"
           placeholder="Enter your tag..."
-          className="h-10 lg:w-[60%] md:w-[75%] sm:w-[85%] w-[95%] px-3 border border-gray-500 rounded-md bg-transparent font-Funnel text-white focus:ring-1 focus:ring-[#fc8e97]"
+          className="h-10 lg:w-[60%] md:w-[75%] sm:w-[85%] w-[95%] px-3 border outline-none focus:border-none border-gray-500 rounded-md bg-transparent font-Funnel text-white focus:ring-1 focus:ring-[#fc8e97]"
           value={customTag}
           onChange={handleCustomTagChange}
         />

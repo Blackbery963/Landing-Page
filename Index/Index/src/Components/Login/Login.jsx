@@ -56,6 +56,7 @@ function Login() {
 
             <h1 className='mt-6 text-lg lg:text-[1.6vw] font-playfair font-bold'>Password</h1>
             <input type='password' placeholder='Password' className='mt-2 w-full h-10 rounded-lg pl-4 bg-[#ffffff59] backdrop-blur-md placeholder-black font-unna shadow-md border border-white outline-none' value={password}  onChange={(e) => setPassword(e.target.value)}/>
+            <p className=' hover:underline font-Playfair pl-2 mt-1 cursor-pointer'>Forgot Password ?</p>
           </div>
 
           

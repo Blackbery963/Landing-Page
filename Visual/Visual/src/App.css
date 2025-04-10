@@ -1,8 +1,0 @@
-.hide-scrollbar { -ms-overflow-style: none; /* IE and Edge */ scrollbar-width: none; /* Firefox */ }
-
-.gradient-text {
-    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Define gradient colors */
-    -webkit-background-clip: text; /* Clip the background to the text */
-    -webkit-text-fill-color: transparent; /* Make the text transparent to show the background */
-  }
-  

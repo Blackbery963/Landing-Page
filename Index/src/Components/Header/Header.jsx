@@ -169,7 +169,7 @@ function Header() {
         color: "#D91656",
         marginTop: "-0.4rem",
       }}
-      startDelay={2000}
+      startDelay={2400}
       cursorColor="transparent"
       multiText={["The Diary of Every Artist"]}
       typeSpeed={150}
@@ -276,11 +276,22 @@ function Header() {
         >
           <input
             type="search"
+            list="search"
             placeholder="Explore The Gallery of Dreams..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="flex-grow h-full px-4 text-[12px] sm:text-[16px] border-none outline-none bg-transparent font-playfair"
           />
+          <datalist id="search">
+            <option value="helllo"></option>
+            <option value="he"></option>
+            <option value="hell"></option>
+            <option value="hello"></option>
+            <option value="lllo"></option>
+            <option value="o"></option>
+            <option value="helllo"></option>
+
+          </datalist>
           <div className="h-[80%] w-[2px] bg-slate-800 py-1"></div>
           <button type="submit" className="p-3" aria-label="Search" onClick={() => handleSearch(query)}>
             <IoMdSearch className="text-[20px]"/>

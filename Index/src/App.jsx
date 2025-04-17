@@ -21,7 +21,7 @@ import Age from './Components/Age/Age';
 import Landscape from './Sub-Components/Landscape/Landscape';
 import Portrait from './Sub-Components/Portrait/Portrait';
 import Still_life from './Sub-Components/Still-life/Still_life';
-import Oil_paint from './Sub-Components/Oil-paint/Oil_paint';
+import Oil_paint from './Sub-Components/Oil_paint/Oil_paint';
 import Water_color from './Sub-Components/Water-color/Water_color';
 import Abstract from './Sub-Components/Abstract/Abstract';
 import Historical from './Sub-Components/Historical/Histoirical';
@@ -108,7 +108,7 @@ function App() {
         <Route path="/landscape" element={<Landscape />} />
         <Route path="/portrait" element={<Portrait />} />
         <Route path="/still-life" element={<Still_life />} />
-        <Route path="/oil-paint" element={<Oil_paint />} />
+        <Route path="/oil_paint" element={<Oil_paint />} />
         <Route path="/watercolor" element={<Water_color />} />
         <Route path="/abstract" element={<Abstract />} />
         <Route path="/historical" element={<Historical />} />

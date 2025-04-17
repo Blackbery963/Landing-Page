@@ -9,7 +9,7 @@ import { MdVisibility } from "react-icons/md";
 import { FaDownload, FaThumbsUp, FaShare, FaRegThumbsUp, FaRegEye, } from "react-icons/fa";
 import { BiCommentEdit } from "react-icons/bi";
 import { FiDownload, FiGrid } from "react-icons/fi";
-import {IoEyeOutline, IoInformationCircleOutline} from "react-icons/io5"
+import {IoClose, IoEyeOutline, IoInformationCircleOutline} from "react-icons/io5"
 import {PiShareFatThin} from 'react-icons/pi'
 
 const images = [
@@ -293,7 +293,7 @@ function Grid() {
                     className="w-full px-2 py-1 rounded-lg border border-gray-500 flex items-center gap-1"
                     onClick={() => toggleLove(selectedImageIndex)}
                   >
-                    <span className="lg:block hidden">Favourite</span>
+                    <span className="lg:block hidden font-serif">Favourite</span>
                     {lovedImages[selectedImageIndex] ? (
                       <AiFillHeart className="text-[#f50538]" />
                     ) : (
@@ -305,7 +305,7 @@ function Grid() {
                     className="w-full px-2 py-1 rounded-lg border border-gray-500 flex items-center gap-1"
                     onClick={() => downloadImage(selectedImage)}
                   >
-                    <span className="lg:block hidden">Download</span>
+                    <span className="lg:block hidden font-serif">Download</span>
                     <FiDownload />
                   </button>
                   <button 
@@ -317,10 +317,10 @@ function Grid() {
                   </button>
 
                   <button
-                    className="w-full px-1 py-1 rounded-lg border border-gray-500"
+                    className="w-full px-2 lg:py-2 py-1 rounded-md border border-gray-500"
                     onClick={() => setSelectedImage(null)}
                   >
-                    <img src={Close} alt="Close" />
+                    <IoClose className="text-gray-800 " />
                   </button>
                 </div>
               </div>

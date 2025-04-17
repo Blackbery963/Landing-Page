@@ -39,6 +39,13 @@
    
 }
 
+select.input {
+  appearance: none; /* Remove default arrow */
+  background-image: url('data:image/svg+xml,...'); /* Add custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+}
+
 
 @media (min-width: 1024px ) {
   
@@ -147,3 +154,6 @@
 .hover-underline:hover::before {
   transform: scaleX(1);
 }
+
+
+

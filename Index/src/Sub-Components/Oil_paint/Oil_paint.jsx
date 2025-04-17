@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import BackImg from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Oil-paint/Oil-paint-images/painting-1813968.jpg';
+import BackImg from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Oil_paint/Oil-paint-images/coast-7569813.jpg';
 import { Link } from 'react-router-dom';
 import { FaHome, FaUser, FaInfoCircle,  FaPalette,FaSearch } from 'react-icons/fa'; // Importing icons
 import { motion } from "framer-motion";
@@ -91,10 +91,10 @@ function Oil_paint() {
         </header>
         {/* Hero Section */}
         <main className='flex flex-col items-center justify-center h-full px-4 text-center'>
-          <h1 className='font-Tapestary text-[30px] md:text-[50px] text-[#ffffff] drop-shadow-lg animate-fade-in'>
+          <h1 className='font-Tapestary text-[30px] md:text-[50px] text-[#2c0303] drop-shadow-lg animate-fade-in'>
           Echoes in Every Stroke
           </h1>
-          <h5 className='font-Carattere font-normal text-[20px] md:text-[28px] text-[#ffffff] mt-4 drop-shadow-md animate-fade-in delay-200'>
+          <h5 className='font-Carattere font-normal text-[20px] md:text-[28px] text-[#0f032b] mt-4 drop-shadow-md animate-fade-in delay-200'>
           Through layers of rich pigment, oil paintings breathe life into emotions, preserving the unspoken beauty of the heart's deepest whispers.
           </h5>
           <button 
@@ -117,10 +117,7 @@ function Oil_paint() {
     Layer by layer, oil paintings unveil a world of depth and emotion, capturing the essence of life’s beauty in vibrant and lasting hues.
     </p>
   </div>
-  {/* Image with quote Grid Section */}
-  <div className='flex overflow-x-scroll overflow-y-hidden w-[60%] gap-8 mx-auto'>
-    
-  </div>
+ 
 </section>
         {/* all images */}
        <section>

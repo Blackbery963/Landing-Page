@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-// import BackImg from '/home/swarnadip/Documents/Index/Landscape/Landscape/src/Image/pexels-bri-schneiter-28802-346529.jpg';
+import BackImg from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Landscape/Landscape-images/pexels-bri-schneiter-28802-346529.jpg';
 import Painting1 from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Landscape/Landscape-images/img18.jpg'; // Example image for content section
 import Painting2 from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Landscape/Landscape-images/img19.jpg';
 import Painting3 from '/home/swarnadip/Documents/Index/Index/Index/src/Sub-Components/Landscape/Landscape-images/img20.jpg';

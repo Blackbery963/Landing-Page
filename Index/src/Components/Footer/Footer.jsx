@@ -13,9 +13,9 @@ function Footer() {
   };
 
   return (
-    <footer className="min-h-screen bg-slate-300 w-full bg-cover bg-center flex justify-center items-center">
+    <footer className="min-h-screen bg-slate-100 dark:bg-[#040d1200] w-full bg-cover bg-center flex justify-center items-center">
       <div
-        className="md:h-[94vh] h-full w-[90vw] border border-red-50 rounded-lg shadow-lg bg-center bg-cover lg:my-0 my-4"
+        className="md:h-[94vh] h-full w-[95vw] border border-red-50 rounded-lg shadow-lg bg-center bg-cover lg:my-0 my-4"
         style={foot}
       >
         {/* Top Navbar */}

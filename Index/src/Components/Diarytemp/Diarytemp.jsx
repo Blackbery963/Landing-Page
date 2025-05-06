@@ -114,7 +114,7 @@ function Diarytemp() {
   }, []);
 
   return (
-    <div className="max-w-screen min-h-[90vh] font-sans">
+    <div className="max-w-[95%] mx-auto rounded-md overflow-hidden min-h-[90vh] font-sans">
       <div
         className="h-[90vh] w-full bg-cover bg-center flex flex-col md:flex-row"
         style={{ backgroundImage: `url(${DiarytempBack})` }}

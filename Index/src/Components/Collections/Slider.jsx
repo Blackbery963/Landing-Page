@@ -5,24 +5,28 @@ import "slick-carousel/slick/slick-theme.css";
 
 const slides = [
   {
-    image: "https://images.pexels.com/photos/29892850/pexels-photo-29892850/free-photo-of-boston-public-garden-winter-wonderland.jpeg",
-    title: "Top Deals on Electronics!",
-    description: "Save big on the latest gadgets. Limited time offer.",
+    image:
+      'https://images.pexels.com/photos/29892850/pexels-photo-29892850/free-photo-of-boston-public-garden-winter-wonderland.jpeg',
+    title: 'Explore Artistic Creations',
+    description: 'Discover unique paintings and illustrations from talented artists.',
   },
   {
-    image: "https://images.pexels.com/photos/29304914/pexels-photo-29304914/free-photo-of-snow-covered-mountains-and-fishing-boats-in-arctic-waters.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Mega Fashion Sale",
-    description: "Up to 70% off on top fashion brands.",
+    image:
+      'https://images.pexels.com/photos/29304914/pexels-photo-29304914/free-photo-of-snow-covered-mountains-and-fishing-boats-in-arctic-waters.jpeg',
+    title: 'Join Our Creative Community',
+    description: 'Connect with artists and share your passion for art.',
   },
   {
-    image: "https://images.pexels.com/photos/15566467/pexels-photo-15566467/free-photo-of-pavement-along-water-pond-in-city.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Home Essentials",
-    description: "Discounts on furniture, kitchenware, and more.",
+    image:
+      'https://images.pexels.com/photos/15566467/pexels-photo-15566467/free-photo-of-pavement-along-water-pond-in-city.jpeg',
+    title: 'Showcase Your Masterpieces',
+    description: 'Upload your artwork and inspire others.',
   },
   {
-    image: "https://images.pexels.com/photos/29304914/pexels-photo-29304914/free-photo-of-snow-covered-mountains-and-fishing-boats-in-arctic-waters.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Mega Fashion Sale",
-    description: "Up to 70% off on top fashion brands.",
+    image:
+      'https://images.pexels.com/photos/17081487/pexels-photo-17081487/free-photo-of-lake-and-snowy-mountains.jpeg',
+    title: 'Collaborate & Grow',
+    description: 'Work with fellow artists to create something extraordinary.',
   },
 ];
 
@@ -69,7 +73,7 @@ const CustomNextArrow = ({ onClick }) => (
   };
 
   return (
-    <div className=" h-full w-full overflow-hidden relative mx-auto">
+    <div className=" h-full w-full overflow-hidden relative mx-auto lg:rounded-lg rounded-md ">
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index} className="relative">
@@ -77,6 +81,7 @@ const CustomNextArrow = ({ onClick }) => (
             <div
               className="w-full h-[50vh] bg-cover bg-center"
               style={{
+                loading:"lazy",
                 backgroundImage: `url(${slide.image})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover'
@@ -112,4 +117,3 @@ const CustomNextArrow = ({ onClick }) => (
 };
 
 export default ImageSlider;
-// w-[95vw] h-[50vh]

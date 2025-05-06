@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Close from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Header/Header-Images/9165593_menu_list_icon.svg';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -146,6 +145,7 @@ function Grid() {
         {images.map((src, index) => (
           <div
             key={index}
+            loading="lazy"
             className="relative rounded-lg shadow-lg group overflow-hidden break-inside-avoid mb-4"
             data-aos="fade-up"
             style={{

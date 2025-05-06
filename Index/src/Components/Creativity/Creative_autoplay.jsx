@@ -47,25 +47,6 @@ const slides = [
 ];
 
 const CreativeAutoplay = () => {
-  // const CustomPrevArrow = ({ onClick }) => (
-  //   <button
-  //     className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 bg-black/50 text-white rounded-full p-2 hover:bg-black border border-gray-400"
-  //     onClick={onClick}
-  //     aria-label="Previous Slide"
-  //   >
-  //     &#8592; {/* Left Arrow */}
-  //   </button>
-  // );
-
-  // const CustomNextArrow = ({ onClick }) => (
-  //   <button
-  //     className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 bg-black/50 text-white rounded-full p-2 hover:bg-black border border-gray-400"
-  //     onClick={onClick}
-  //     aria-label="Next Slide"
-  //   >
-  //     &#8594; {/* Right Arrow */}
-  //   </button>
-  // );
 
   const settings = {
    

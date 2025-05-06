@@ -22,7 +22,6 @@ import Pic_14 from './Category-images/no-14.jpg';
 import Pic_15 from './Category-images/no-15.jpg';
 import Pic_16 from './Category-images/no-16.jpg';
 import Pic_17 from './Category-images/no-17.jpeg';
-import Background from './Category-images/detailed-picture-budding-purple-flower-field.jpg';
 
 function Category() {
   useEffect(() => {
@@ -146,17 +145,10 @@ function Category() {
 
   return (
     <div className="min-h-screen max-w-screen bg-gradient-to-br from-[#2D0434] to-[#3A0B4F] flex items-center flex-col justify-center py-8 overflow-x-hidden">
-     <h1 className="text-3xl sm:text-4xl lg:text-5xl text-white font-semibold mb-6 text-center px-4 font-Playfair">
+     <h1 className="text-2xl sm:text-3xl lg:text-4xl text-white font-semibold mb-6 text-center px-4 font-Playfair">
      Explore the Spectrum of Artistic Styles
     </h1>
-    <motion.div
-      className="min-h-[90vh] w-[95vw] sm:w-[90vw] flex items-center justify-center bg-center bg-cover rounded-2xl py-6"
-      style={{ backgroundImage: `url(${Background})` }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
-      <div className="h-[90%] w-[95%] backdrop-blur-lg bg-[#ffffff48] rounded-2xl border border-gray-300 grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 p-4 sm:p-8 justify-items-center overflow-auto">
+      <div className="h-[90%] w-[85%] backdrop-blur-lg bg-[#ffffff23] rounded-2xl border border-gray-300 grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 p-4 sm:p-8 justify-items-center overflow-auto">
         {images.map((img, index) => (
           <motion.div
             key={index}
@@ -176,7 +168,6 @@ function Category() {
           </motion.div>
         ))}
       </div>
-    </motion.div>
   </div> 
   );
 }

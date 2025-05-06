@@ -13,5 +13,6 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     include: ['swiper'],
+    exclude: ['react-hot-toast']
   },
 });

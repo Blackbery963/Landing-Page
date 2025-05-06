@@ -33,8 +33,8 @@ function Review() {
 
   return (
     // Review Section
-    <div className="w-full h-auto overflow-hidden bg-slate-300 p-4 relative">
-      <h1 className="md:text-[35px] text-[30px] font-Playfair md:text-left text-center font-semibold">
+    <div className="w-[98%] h-auto overflow-hidden bg-gray-100 dark:bg-[#040d1200] relative">
+      <h1 className="md:text-[35px] text-[30px] font-Playfair md:text-left text-center font-semibold text-black dark:text-gray-50">
         What People Say About Us
       </h1>
       {/* Scrollable Container with Navigation */}

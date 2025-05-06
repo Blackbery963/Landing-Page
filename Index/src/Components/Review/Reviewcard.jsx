@@ -50,14 +50,14 @@ export default function ReviewCard({ Profileimg, Username, Review }) {
               </a>
             </div>
           </div>
-
-          {/* Back Side */}
-          <div 
-            className="absolute w-full h-full bg-cover bg-center flex items-center justify-center backface-hidden rounded-xl shadow-xl rotate-y-180"
-            style={{ backgroundImage: `url(${behindbackground})` }}
-          >
-            <div className='lg:h-[80%] lg:w-[80%] w-[90%] h-[90%] bg-white/10 backdrop-blur-sm border border-gray-400 rounded-md flex items-center justify-center text-center p-2'>
-              <p className='text-[20px] font-Newsreader text-center text-gray-300'>" {Review} "</p>
+          {/* the Back side of the card */}
+            <div
+            className="absolute w-full h-full bg-gradient-to-br from-[#FFEBEE] to-[#E6E6FA] dark:from-[#1E1E3F] dark:to-[#2E1B47] flex items-center justify-center backface-hidden rounded-xl shadow-lg rotate-y-180 border border-gray-200/50 dark:border-gray-700/50"
+            >
+            <div className="lg:h-[80%] lg:w-[80%] w-[90%] h-[90%] bg-white/20 dark:bg-gray-900/30 backdrop-blur-md border border-gray-300/50 dark:border-gray-600/50 rounded-md flex items-center justify-center text-center p-4">
+              <p className="text-[20px] font-Newsreader text-center text-gray-800 dark:text-gray-200 leading-relaxed">
+                "{Review}"
+              </p>
             </div>
           </div>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import background from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Age/Images-of-Age/freepik-export-20241003194133ns5o_edited.jpg';
+import background from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Age/Images-of-Age/painting-4159435.jpg';
 import Beginner from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Age/Images-of-Age/a beginner kid artist.jpg';
 import Mid from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Age/Images-of-Age/a artist at about 16 years old boy with canvas.jpg';
 import Student from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Age/Images-of-Age/a boy student artist.jpg';
@@ -19,7 +19,7 @@ function Age() {
   
   return (
     <div
-      className="min-h-[85vh] w-screen justify-center flex items-center"
+      className="min-h-[85vh] w-[95%] mx-auto rounded-md  justify-center flex items-center"
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: 'cover',
@@ -53,7 +53,7 @@ function Age() {
             <p className="text-sm lg:text-base font-Newsreader mt-2 text-[#C4DAD2]">
               Established with regular exhibitions and growing recognition.
             </p>
-           <Link to={"/Mid_Carrier"} className='w-full flex justify-center'>
+           <Link className='w-full flex justify-center' to={'/Mid_Carrier'}>
            <button className="mt-4 w-[60%] bg-green-950 text-sm lg:text-base text-gray-200 py-2 rounded-lg hover:bg-green-900 border border-gray-400">
               Explore
             </button>

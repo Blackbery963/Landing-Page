@@ -7,59 +7,85 @@ import bg_4 from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Gal
 import bg_5 from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Gallery/Bgimage-for-Container/img4.jpg'
 import bg_6 from '/home/swarnadip/Documents/Index/Index/Index/src/Components/Gallery/Bgimage-for-Container/img5.jpg'
 import { Link } from 'react-router-dom';
-import Galleryslider from './Galleryslider';
+import { MdCollections } from 'react-icons/md';
+import { motion} from 'framer-motion';
+
+
 
 function Gallery () {
+
+  const buttonVariants = {
+    hover: { scale: 1.1, backgroundColor: '#A4C6EB', transition: { duration: 0.3 } },
+    tap: { scale: 0.95 },
+  };
 
   return (
     <div className="max-w-screen min-h-screen flex flex-col">
       {/* Hero Section */}
       <div
-        className="h-[75vh] w-full bg-center bg-cover flex flex-col"
+        className="h-[85vh] w-full bg-center bg-cover flex flex-col items-center justify-center relative"
         style={{ backgroundImage: `url(${bg})` }}
       >
         {/* Sticky Header */}
-        <header className="h-[100px] w-full backdrop-blur-md shadow-md flex items-center justify-between pl-4 pr-8 sticky top-0 z-50">
+        <header className="h-[80px] w-full backdrop-blur-md shadow-md flex items-center justify-between pl-4 pr-8 fixed top-0 z-50">
           {/* Logo */}
-          <div>
             <h1 className="font-Eagle font-bold lg:text-[35px] md:text-[30px] sm:text-[25px] text-[20px] text-[#001F3F]">
               Painters' Diary
             </h1>
-          </div>
+
           {/* Action Buttons */}
-          <div className="font-Playfair flex gap-8">
-            <Link to = '/'>
-            <button className="hidden sm:flex bg-gradient-to-tr from-green-500 to-green-900 text-white px-2 py-1 rounded-md">
-              Home
-            </button>
-            <FaHome className="sm:hidden text-green-700 text-2xl" title="Home" />
-            </Link>
-            
-            <Link to={'/about'}>
-            <button className="hidden sm:flex bg-gradient-to-tr from-green-500 to-green-900 text-white px-2 py-1 rounded-md">
-              About
-            </button>
-            <FaInfoCircle className="sm:hidden text-green-700 text-2xl" title="About" />
-            </Link>
+          <div className="flex gap-x-2 sm:gap-x-4 text-gray-800 font-playfair font-semibold">
+          <Link to="/">
+  <motion.button
+    className="px-2 sm:px-2 py-1 sm:py-1 rounded-md hover:bg-green-700 flex items-center gap-2"
+    variants={buttonVariants}
+    whileHover="hover"
+    whileTap="tap"
+  >
+    <FaHome className="text-lg sm:text-xl" />
+    <span className="hidden sm:inline">Home</span>
+  </motion.button>
+</Link>
+<Link to="/About">
+  <motion.button
+    className="px-2 sm:px-2 py-1 sm:py-1 rounded-md hover:bg-green-700 flex items-center gap-2"
+    variants={buttonVariants}
+    whileHover="hover"
+    whileTap="tap"
+  >
+    <FaInfoCircle className="text-lg sm:text-xl" />
+    <span className="hidden sm:inline">About</span>
+  </motion.button>
+</Link>
+<Link to="/Account">
+  <motion.button
+    className="px-2 sm:px-2 py-1 sm:py-1 rounded-md hover:bg-green-700 flex items-center gap-2"
+    variants={buttonVariants}
+    whileHover="hover"
+    whileTap="tap"
+  >
+    <FaUser className="text-lg sm:text-xl" />
+    <span className="hidden sm:inline">Account</span>
+  </motion.button>
+</Link>
+<Link to="/Journal">
+  <motion.button
+    className="px-2 sm:px-2 py-1 sm:py-1 rounded-md hover:bg-green-700 flex items-center gap-2"
+    variants={buttonVariants}
+    whileHover="hover"
+    whileTap="tap"
+  >
+    <MdCollections className="text-lg sm:text-xl" />
+    <span className="hidden sm:inline">Collections</span>
+  </motion.button>
+</Link>
 
-            <Link to={'/account'}>
-            <button className="hidden sm:flex bg-gradient-to-tr from-green-500 to-green-900 text-white px-2 py-1 rounded-md">
-             Account
-            </button>
-            <FaUser className="sm:hidden text-green-700 text-2xl" title="Contact" />
-            </Link>
-
-            <Link>
-            <button className="hidden sm:flex bg-gradient-to-tr from-green-500 to-green-900 text-white px-2 py-1 rounded-md">
-              Collections
-            </button>
-            <FaPalette className="sm:hidden text-green-700 text-2xl" title="Collections" />
-            </Link>
+           
           </div>
         </header>
 
         {/* Title and Subtitle Section */}
-        <section className="mx-auto lg:w-[50%] w-[80%] backdrop-blur-md pl-12 pr-12 md:mt-16 mt-[50%] lg:py-6 py-3 border border-gray-600 shadow-lg animate-fadeIn">
+        <section className="mx-auto lg:w-[50%] w-[80%] backdrop-blur-md pl-12 pr-12 lg:py-6 py-3 border border-gray-600 shadow-lg animate-fadeIn">
           <h1 className="font-Tapestary lg:text-[40px] md:text-[30px] sm:text-[25px] text-[20px] text-[#6A1E55] text-left animate-slideInUp">
             Palette of Dreams A Showcase of Artistic Brilliance
           </h1>
@@ -70,11 +96,6 @@ function Gallery () {
             and its profound connection to the human spirit.
           </h5>
         </section>
-      </div>
-
-      {/* Responsive Image Container */}
-      <div className="lg:h-[35vh] md:h-[30vh] h-[25vh] lg:w-[50vw] md:w-[60vw] w-[85vw] bg-black mt-[-8%] mx-auto flex items-center justify-center rounded-md">
-       <Galleryslider/>
       </div>
 
       {/* Title and Subtitle for Quotes */}
@@ -199,4 +220,3 @@ function Gallery () {
 }
 
 export default Gallery;
-

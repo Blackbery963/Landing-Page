@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Typewriter from "react-typewriter-effect";
-import Menu from "/home/swarnadip/Documents/Index/Index/Index/src/Components/Header/Header-Images/9165593_menu_list_icon.svg";
-import backgroundImage from "/home/swarnadip/Documents/Index/Index/Index/src/Components/Header/Header-Images/freepik-export-20241117064007hmqY.png";
 import { Link } from 'react-router-dom';
 import { FaUserEdit, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import Your_Collections from './Your_Collection/Your_Collections';
-import { MdOutlineDashboardCustomize, MdOutlinePhotoCameraBack, MdSettings } from "react-icons/md";
+import { MdClose, MdOutlineDashboardCustomize, MdOutlinePhotoCameraBack, MdSettings, MdHistory } from "react-icons/md";
 import { FiUpload, FiEdit } from 'react-icons/fi';
 import { IoIosLogOut } from 'react-icons/io';
-import { CiCamera, CiEdit } from 'react-icons/ci';
+import { CiEdit, CiMenuFries } from 'react-icons/ci';
 import { FaXTwitter } from 'react-icons/fa6';
-import { FaHome, FaHeart, FaDownload, FaUsers, FaCrown, FaCog } from "react-icons/fa";
-import { FaUserPlus, FaUser, FaBookOpen, FaTimes,FaImages,FaList,FaBlog,FaQuestionCircle,FaHandsHelping,FaComment  } from "react-icons/fa";
-
+import { ImBlog } from 'react-icons/im';
+import { BiCategoryAlt } from 'react-icons/bi';
+import { IoMdHelpCircleOutline } from 'react-icons/io';
+import { MdOutlineFeedback } from 'react-icons/md';
+import { FaHome, FaUsers, FaUser, FaImages, FaHandsHelping, } from "react-icons/fa";
+import { motion } from 'framer-motion';
 
 function Account() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,31 +54,43 @@ function Account() {
 
   useEffect(() => {
     const handleResize = () => {
+      console.log('Window width:', window.innerWidth, 'isLargeScreen:', window.innerWidth >= 1024);
       setIsLargeScreen(window.innerWidth >= 1024);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target) && !isLargeScreen) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, [isLargeScreen]);
+
+  const handleMouseEnter = () => {
+    if (isLargeScreen) {
+      console.log('Mouse enter, opening dropdown');
+      clearTimeout(timeoutRef.current);
+      setIsDropdownOpen(true);
+    }
+  };
+
   const handleMouseLeave = () => {
     if (isLargeScreen) {
+      console.log('Mouse leave, closing dropdown');
       timeoutRef.current = setTimeout(() => {
         setIsDropdownOpen(false);
       }, 300);
     }
   };
 
-  const handleMouseEnter = () => {
-    if (isLargeScreen) {
-      clearTimeout(timeoutRef.current);
-      setIsDropdownOpen(true);
-    }
-  };
-
   const toggleDropdown = () => {
-    if (!isLargeScreen) {
-      setIsDropdownOpen(!isDropdownOpen);
-    }
+    console.log('Toggling dropdown, isLargeScreen:', isLargeScreen, 'isDropdownOpen:', !isDropdownOpen);
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   useEffect(() => {
@@ -89,35 +102,31 @@ function Account() {
     Gallery: "/gallery",
     Category: "/category",
     "My Account": "/account",
+    History:"/History",
     Community: "/community",
     Blog: "/blog",
     FAQs: "/FAQs",
-    Help: "/help",
+    Help: "/Resources/Help",
     Feedback: "/Resources/Feedback",
   };
 
-    const routeIcons = {
-      Home: <FaHome />,
-      Gallery: <FaImages />,
-      Category: <FaList />,
-      "My Account": <FaUser />,
-      Community: <FaUsers />,
-      Blog: <FaBlog />,
-      FAQs: <FaQuestionCircle />,
-      Help: <FaHandsHelping />,
-      Feedback: <FaComment />,
-    };
-    
-  const backgroundImg = {
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  };
+     const routeIcons = {
+       Home: <FaHome />,
+       Gallery: <FaImages />,
+       Category: <BiCategoryAlt />,
+       "My Account": <FaUser />,
+       History:<MdHistory/>,
+       Community: <FaUsers />,
+       Blog: <ImBlog />,
+       FAQs: <IoMdHelpCircleOutline />,
+       Help: <FaHandsHelping />,
+       Feedback: <MdOutlineFeedback />,
+     };
+   
 
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Check file size (<5MB = 5 * 1024 * 1024 bytes)
       if (file.size >= 5 * 1024 * 1024) {
         alert('File size must be less than 5MB. Please upload a smaller image.');
         return;
@@ -144,7 +153,6 @@ function Account() {
   const handleProfileImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Apply the same <5MB limit to profile image
       if (file.size >= 5 * 1024 * 1024) {
         alert('File size must be less than 5MB. Please upload a smaller image.');
         return;
@@ -188,150 +196,143 @@ function Account() {
     }
   };
 
+  const menuVariants = {
+    open: { x: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeInOut' } },
+    closed: { x: '-100%', opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } },
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.1, transition: { duration: 0.3 } },
+    tap: { scale: 0.95 },
+  };
+
+  const coverVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8 } },
+  };
+
   return (
-    <div className="w-full min-h-screen flex flex-col pb-6 overflow-x-hidden bg-slate-100">
+    <div className="w-full min-h-screen flex flex-col pb-6 overflow-x-hidden bg-slate-100 dark:bg-[#040d12f5]">
       {/* Header */}
-      <header className="w-full h-[100px] backdrop-blur-lg bg-gradient-to-l to-[#f3d1d677] via-[#735e6275] from-[#251c2096] flex items-center justify-between px-6 z-50 fixed">
-        <div className="h-fit w-fit py-1 px-1 bg-black/50 hover:bg-gray-700 rounded-md flex items-center justify-center">
-          <button
-            className="h-full w-full flex items-center justify-center"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <img className="lg:h-[30px] lg:w-[30px] md:h-[25px] md:w-[25px] h-[18px] w-[18px]" src={Menu} alt="Menu Icon" />
-          </button>
-        </div>
-        <div className="flex-1 flex flex-col items-center">
-          <Typewriter
-            textStyle={{
-              fontFamily: "Eagle Lake",
-              fontSize: "clamp(1.5rem, 2.8vw, 2.8rem)",
-              fontWeight: "500",
-              color: "#c83e4d",
-            }}
-            startDelay={100}
-            cursorColor="transparent"
-            multiText={["Painters' Diary"]}
-            multiTextDelay={1000}
-            typeSpeed={200}
-            deleteSpeed={1000}
-          />
-          <Typewriter
-            textStyle={{
-              fontFamily: "Cookie",
-              fontSize: "clamp(1rem, 1.8vw, 1.75rem)",
-              color: "#D91656",
-              marginTop: "-0.5rem",
-            }}
-            startDelay={3500}
-            cursorColor="transparent"
-            multiText={["The Diary of Every Artist"]}
-            multiTextDelay={1000}
-            typeSpeed={200}
-            deleteSpeed={100}
-          />
-        </div>
-        <div
-          className="relative group"
-          ref={dropdownRef}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+        <header className="w-full  h-[80px] bg-gradient-to-l from-[#0f172acc] via-[#1e293bcc] to-[#334155cc] dark:from-[#020617cc] dark:via-[#0f172acc] dark:to-[#1e293bcc] flex items-center justify-between px-6 z-50 fixed">
+  <div
+    className="sm:py-2 sm:px-2 px-1 py-1 bg-slate-700/60 hover:bg-slate-600/80 dark:bg-slate-800/60 dark:hover:bg-slate-700/80 rounded-md flex items-center justify-center cursor-pointer border border-slate-300 dark:border-slate-600 transition-all hover:rotate-180 duration-300"
+    onClick={() => setIsMenuOpen(!isMenuOpen)}
+  >
+    <button className="h-full w-full flex items-center justify-center">
+      <CiMenuFries className="text-xl block text-white" />
+    </button>
+  </div>
+
+  <div
+    className="relative group"
+    ref={dropdownRef}
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+  >
+    <button
+      className="sm:px-2 px-1 md:px-3 sm:py-2 py-1 border border-gray-400 dark:border-gray-600 rounded-md flex items-center gap-2 transition-all duration-200 bg-slate-700/60 hover:bg-slate-600/80 dark:bg-slate-800/60 dark:hover:bg-slate-700/80 text-slate-100"
+      onClick={toggleDropdown}
+    >
+      <span className="text-sm md:text-base md:block hidden text-white font-Playfair">Settings</span>
+      <MdSettings className="text-xl md:text-2xl block text-white" />
+    </button>
+
+    <div
+      className={`absolute top-full right-0 mt-2 w-[180px] bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-md shadow-lg transition-all duration-200 z-50 sm:p-2
+        ${isDropdownOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}
+    >
+      <Link to={'/Account/Edit_Profile'}>
+        <button
+          className="w-full px-4 py-3 text-left hover:bg-violet-100 dark:hover:bg-violet-900 text-gray-800 dark:text-gray-100 flex items-center gap-2 text-sm"
+          onClick={() => setIsDropdownOpen(false)}
         >
-          <button
-            className="sm:px-2 px-1 md:px-3 sm:py-2 py-1 border border-gray-400 rounded-md flex items-center gap-1 transition-all duration-200 bg-black/50 hover:bg-black/90"
-            onClick={toggleDropdown}
-          >
-            <span className="text-sm md:text-base md:block hidden text-white font-Playfair">Settings</span>
-            <MdSettings className="text-lg md:text-xl block text-white" />
-          </button>
-          <div
-            className={`absolute top-full right-0 mt-2 w-[180px] bg-white border border-gray-300 rounded-md shadow-lg transition-all duration-200 z-50
-              ${isDropdownOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}
-          >
-            <Link to={'/Account/Edit_Profile'}>
-              <button
-                className="w-full px-3 py-2 text-left hover:bg-violet-100 text-gray-800 flex items-center gap-2 text-sm"
-                onClick={() => setIsDropdownOpen(false)}
-              >
-                <CiEdit className="text-lg" />
-                Edit Profile
-              </button>
-            </Link>
-            <Link to={'/Account/Dashboard'}>
-              <button
-                className="w-full px-3 py-2 text-left hover:bg-violet-100 text-gray-800 flex items-center gap-2 text-sm"
-                onClick={() => setIsDropdownOpen(false)}
-              >
-                <MdOutlineDashboardCustomize className="text-lg" />
-                Dashboard
-              </button>
-            </Link>
-            <button
-              className="w-full px-3 py-2 text-left hover:bg-violet-100 text-gray-800 flex items-center gap-2 text-sm"
-              onClick={handleLogout}
-            >
-              <IoIosLogOut className="text-lg" />
-              Logout
-            </button>
-          </div>
-        </div>
-      </header>
+          <CiEdit className="text-lg" />
+          Edit Profile
+        </button>
+      </Link>
+
+      <Link to={'/Account/Dashboard'}>
+        <button
+          className="w-full px-4 py-3 text-left hover:bg-violet-100 dark:hover:bg-violet-900 text-gray-800 dark:text-gray-100 flex items-center gap-2 text-sm"
+          onClick={() => setIsDropdownOpen(false)}
+        >
+          <MdOutlineDashboardCustomize className="text-lg" />
+          Dashboard
+        </button>
+      </Link>
+
+      <button
+        className="w-full px-4 py-3 text-left hover:bg-violet-100 dark:hover:bg-violet-900 text-gray-800 dark:text-gray-100 flex items-center gap-2 text-sm"
+        onClick={handleLogout}
+      >
+        <IoIosLogOut className="text-lg" />
+        Logout
+      </button>
+    </div>
+  </div>
+</header>
 
       {/* Sliding Menu */}
-       <div
-        className={`fixed top-4 left-4 lg:w-[400px] sm:w-[375px] w-[350px] overflow-hidden h-auto bg-white shadow-lg rounded-xl transition-all duration-1000 ease-in-out ${isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}`}
-        style={{ zIndex: 9999 }}
+
+       <motion.div
+  className="fixed top-0 left-0 w-80 sm:w-96 h-full bg-white dark:bg-gray-900 shadow-2xl z-[9999] overflow-y-auto"
+  variants={menuVariants}
+  initial="closed"
+  animate={isMenuOpen ? 'open' : 'closed'}
+>
+  {/* Profile section - updated with dark mode classes */}
+  <div className="h-48 bg-slate-700 dark:bg-gray-800 p-4 flex items-center justify-between">
+    <div className="h-24 w-24 sm:h-28 sm:w-28 bg-white dark:bg-gray-700 rounded-full overflow-hidden flex items-center justify-center">
+      {profileImage ? (
+        <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+      ) : (
+        <FaUser className="text-4xl text-gray-400 dark:text-gray-300" />
+      )}
+    </div>
+    <div className="flex-1 ml-4">
+      <h1 className="text-white dark:text-gray-200 font-playfair text-lg sm:text-xl">{profile.username || 'Username'}</h1>
+      <p className="text-white dark:text-gray-300 font-Playfair text-sm">{profile.email || 'xyz123@email.com'}</p>
+      <p className="text-white dark:text-gray-300 font-newsreader text-sm">Followers: 122</p>
+    </div>
+    <motion.button
+      className="absolute top-4 right-4 text-white dark:text-gray-200 text-xl font-Playfair"
+      onClick={() => setIsMenuOpen(false)}
+      variants={buttonVariants}
+      whileHover="hover"
+      whileTap="tap"
+    >
+      <MdClose />
+    </motion.button>
+  </div>
+  
+  {/* Menu items section - updated with dark mode classes */}
+  <div className="p-4 bg-gray-100 dark:bg-gray-950 h-[calc(100%-12rem)]">
+    {Object.keys(routes).map((item) => (
+      <Link
+        to={routes[item]}
+        key={item}
+        className="flex items-center gap-3 px-4 py-3 text-gray-800 dark:text-gray-200 font-newsreader text-base hover:bg-slate-200 dark:hover:bg-gray-800 rounded-md font-Playfair"
+        onClick={() => setIsMenuOpen(false)}
       >
-        <div className="h-[20vh] bg-[#000000de] opacity-90 flex items-center justify-between p-3">
-          <div className="lg:h-[130px] lg:w-[130px] h-[100px] w-[100px] bg-white rounded-full text-[7vw] flex items-center justify-center">
-            {profileImage ? (
-              <img src={profileImage} alt="Profile" className="w-full h-full object-cover rounded-full" />
-            ) : (
-              <i className="ri-account-circle-fill"></i>
-            )}
-          </div>
-          <div className="md:mr-12 mr-8">
-            <h1 className="text-white font-news text-[20px] sm:text-[25px] lg:text-[30px]">{profile.username || 'USERNAME'}</h1>
-            <p className="text-white font-news lg:text-[15px]">{profile.email || 'xyz123@email.com'}</p>
-            <p className="text-white font-news text-[16px]">Follower: 122</p>
-            <Link to={"/Account"}>
-              <button className="text-white font-news text-[16px]">
-                Visit Profile
-              </button>
-            </Link>
-          </div>
-          <div
-            className="h-[22px] w-[22px] bg-black text-white flex items-center justify-center rounded-md cursor-pointer absolute right-2 top-2"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            ✕
-          </div>
-        </div>
-        <div className="w-full h-[1.5px] bg-white"></div>
-        <div
-          className="h-[63vh] flex flex-col items-center justify-center md:gap-y-6 gap-y-3 bg-center bg-cover"
-          style={backgroundImg}
-        >
-          {Object.keys(routes).map((item) => (
-            <Link
-              to={routes[item]}
-              key={item}
-              className="h-[2.8vh] w-[40%] bg-[#00000023] backdrop-blur-md text-gray-300 font-news font-semibold hover:border hover:border-gray-500 flex justify-start items-center rounded-lg px-2 pl-4 gap-2"
-            >
-              {/* {item} */}
-              {routeIcons[item]} 
-              <span>{item}</span> 
-            </Link>
-          ))}
-        </div>
-        </div>
+        {routeIcons[item]}
+        <span>{item}</span>
+      </Link>
+    ))}
+  </div>
+</motion.div>
 
-
-      {/* Cover Image Section */}
-      <div className="w-[95%] h-[460px] flex items-center justify-center relative mt-[100px] overflow-hidden mx-auto rounded-b-md">
+       {/* Cover Image Section */}
+      <motion.div
+        className="lg:w-[80%] w-[98%] mx-auto h-[400px] sm:h-[500px] relative mt-[85px] overflow-hidden rounded-b-xl"
+        variants={coverVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {showButton ? (
           <label
             htmlFor="file-upload"
-            className="w-full rounded-b-md h-full flex items-center justify-center cursor-pointer bg-gradient-to-tl from-slate-200 to-slate-700 text-black text-lg font-semibold font-GreatVibes hover:bg-blue-400 transition overflow-hidden"
+            className="w-full h-full flex items-center justify-center cursor-pointer bg-gradient-to-t from-slate-200 to-slate-700 dark:from-slate-700 dark:to-gray-800 text-lg font-playfair font-semibold hover:bg-rose-500 transition"
           >
             Add a Cover Image
             <input
@@ -343,29 +344,25 @@ function Account() {
             />
           </label>
         ) : (
-          <div className="h-full w-full flex items-center justify-center">
-            {image ? (
-              <div className="relative w-full h-full">
-                <img className="h-full w-full object-cover" src={image} alt="Uploaded" />
-                <button
-                  className="absolute bottom-2 right-2 bg-white/25 text-white text-[15px] md:px-2 md:py-2 p-1 rounded-lg backdrop-blur-md shadow hover:bg-gray-700/50 transition"
-                  onClick={() => {
-                    setImage(null);
-                    localStorage.removeItem('coverImage');
-                    setShowButton(true);
-                  }}
-                >
-                  <FiEdit className="block" />
-                </button>
-              </div>
-            ) : (
-              <p className="font-semibold">
-                The image is not uploaded. Please try again!
-              </p>
-            )}
+          <div className="relative w-full h-full">
+            <img className="h-full w-full object-cover" src={image} alt="Cover" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <motion.button
+              className="absolute bottom-4 right-4 bg-white/80 text-rose-700 p-2 rounded-full shadow hover:bg-white"
+              onClick={() => {
+                setImage(null);
+                localStorage.removeItem('coverImage');
+                setShowButton(true);
+              }}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+            >
+              <FiEdit className="text-lg" />
+            </motion.button>
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* Profile Image and Username/Bio */}
       <div className="relative w-full flex flex-col items-center justify-center mt-[100px]">
@@ -379,7 +376,7 @@ function Account() {
             transform: "translateX(-50%)",
           }}
         >
-          <div className="rounded-full border-[5px] border-white flex items-center justify-center bg-black overflow-hidden w-full h-full">
+          <div className="rounded-full border-[5px] dark:border-white border-gray-900  flex items-center justify-center bg-black overflow-hidden w-full h-full">
             {profileImage ? (
               <img
                 src={profileImage}
@@ -449,20 +446,28 @@ function Account() {
       </div>
 
       {/* Follow, Following, Upload Buttons */}
-      <div className="flex lg:gap-14 sm:gap-8 gap-6 mx-auto mt-4">
-        <button className="px-2 py-0 border rounded-lg font-serif">
-          Followers
-        </button>
-        <button className="px-2 py-1 border bg-transparent rounded-lg font-serif">
-          Following
-        </button>
-        <Link to={'/Account/Upload'}>
-          <button className="px-2 py-1 border bg-transparent rounded-lg flex items-center justify-center gap-1">
-            <span>Upload </span>
-            <FiUpload />
-          </button>
-        </Link>
-      </div>
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 px-4 mt-4">
+  {/* Followers Button */}
+  <button className="px-3 py-1.5 font-serif rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all flex items-center gap-2 text-sm sm:text-base font-medium text-gray-700 dark:text-gray-200">
+    <span>Followers:</span>
+    <span className="font-semibold text-blue-600 dark:text-blue-400">1.2M</span>
+  </button>
+
+  {/* Following Button */}
+  <button className="px-3 py-1.5 font-serif rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all flex items-center gap-2 text-sm sm:text-base font-medium text-gray-700 dark:text-gray-200">
+    <span>Following:</span>
+    <span className="font-semibold text-blue-600 dark:text-blue-400">1.2M</span>
+  </button>
+
+  {/* Upload Button */}
+  <Link to={'/Account/Upload'}>
+    <button className="px-3 py-1.5 font-serif rounded-lg bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white shadow-sm hover:shadow-md transition-all flex items-center gap-2 text-sm sm:text-base font-medium">
+      <span>Upload</span>
+      <FiUpload className="text-sm" />
+    </button>
+  </Link>
+</div>
+         
 
       <div className="mt-8">
         <Your_Collections />
@@ -472,3 +477,5 @@ function Account() {
 }
 
 export default Account;
+
+

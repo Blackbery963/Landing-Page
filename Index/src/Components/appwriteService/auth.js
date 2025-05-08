@@ -1,181 +1,143 @@
-// import { Client, Account, ID, Databases } from 'appwrite';
+import sdk from 'node-appwrite';
+import { config } from 'dotenv';
 
-// const client = new Client()
-//   .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT,) // Replace with your Appwrite endpoint
-//   .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID); // Replace with your Appwrite project ID
+// Load environment variables
+config();
 
+const { Client, Users, Databases, ID, Permission, Role } = sdk;
 
-//   const account = new Account(client);
-//   const databases = new Databases(client);
-
-
-//   export const signUpUser = async ({ username, email, password, gender, dateOfBirth, country, number, city }) => {
-//     try {
-//       const user = await account.create(ID.unique(), email, password, username);
-//       await account.createEmailPasswordSession(email, password);
-  
-//       const databaseId = import.meta.env.VITE_APPWRITE_DATABASE_ID;
-//       const collectionId = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
-  
-//       await databases.createDocument(
-//         databaseId,
-//         collectionId,
-//         user.$id,
-//         {
-//           username,
-//           gender,
-//           dateOfBirth,
-//           country,
-//           number,
-//           email,
-//           city,
-//         }
-//       );
-  
-//       return user;
-//     } catch (error) {
-//       console.error('Appwrite signup error:', error.code, error.message, error.type);
-//       if (error.code === 409) {
-//         throw new Error('This email is already registered.');
-//       } else if (error.code === 401) {
-//         throw new Error('Invalid Appwrite credentials or project ID.');
-//       } else if (error.code === 400) {
-//         throw new Error('Invalid input. Ensure email and password are valid.');
-//       } else {
-//         throw new Error(`Signup failed: ${error.message}`);
-//       }
-//     }
-//   };
-
-
-import { Client, Account, ID, Databases } from 'appwrite';
-
+// Initialize Client
 const client = new Client()
-  .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT) // Replace with your Appwrite endpoint
-  .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID); // Replace with your Appwrite project ID
+  .setEndpoint(process.env.VITE_APPWRITE_ENDPOINT)
+  .setProject(process.env.VITE_APPWRITE_PROJECT_ID)
+  .setKey(process.env.VITE_APPWRITE_API_KEY);
 
-const account = new Account(client);
+const users = new Users(client);
 const databases = new Databases(client);
 
 /**
- * Validates user input data before submission
- * @param {Object} userData - User registration data
- * @returns {Object} - Validation result with isValid and error properties
+ * Validates user input data
  */
-const validateUserData = (userData) => {
-  const { email, password, username } = userData;
-  
-  // Basic validation
-  if (!email || !password || !username) {
-    return { isValid: false, error: 'Email, password and username are required.' };
+const validateUserData = ({ email, username, phone, password }) => {
+  if (!email || !username || !password) {
+    return { isValid: false, error: 'Email, username and password are required.' };
   }
   
-  // Email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return { isValid: false, error: 'Please provide a valid email address.' };
+    return { isValid: false, error: 'Invalid email address.' };
   }
   
-  // Password strength validation
+  if (username.length < 3 || username.length > 30) {
+    return { isValid: false, error: 'Username must be between 3-30 characters.' };
+  }
+  
   if (password.length < 8) {
     return { isValid: false, error: 'Password must be at least 8 characters long.' };
   }
   
-  // Username validation
-  if (username.length < 3 || username.length > 30) {
-    return { isValid: false, error: 'Username must be between 3 and 30 characters.' };
+  if (phone && !/^\+?[1-9]\d{1,14}$/.test(phone)) {
+    return { isValid: false, error: 'Invalid phone number format.' };
   }
   
   return { isValid: true };
 };
 
 /**
- * Signs up a new user and stores their profile data
- * @param {Object} userData - User registration data
- * @returns {Promise<Object>} - Created user object
+ * Creates a user account and profile
  */
-export const signUpUser = async (userData) => {
-  const {
-    username,
-    email,
-    password,
-    gender,
-    dateOfBirth,
-    country,
-    number,
-    city
-  } = userData;
-
+export default async function createUser(req, res) {
   try {
-    // Validate input data
-    const validation = validateUserData(userData);
-    if (!validation.isValid) {
-      throw new Error(validation.error);
+    if (!req.payload) {
+      return res.status(400).json({ success: false, error: 'No payload provided' });
     }
 
-    // Format phone number (if provided)
-    const formattedNumber = number ? String(number).trim() : null;
-    
+    let payload;
+    try {
+      payload = JSON.parse(req.payload);
+    } catch (parseError) {
+      return res.status(400).json({ success: false, error: 'Invalid payload format' });
+    }
+
+    const { 
+      email,
+      username,
+      phone,
+      password,
+      gender,
+      dateOfBirth,
+      country,
+      city,
+      theme = 'light'
+    } = payload;
+
+    // Validate input
+    const validation = validateUserData({ email, username, phone, password });
+    if (!validation.isValid) {
+      return res.status(400).json({ success: false, error: validation.error });
+    }
+
     // Create user account
-    const user = await account.create(ID.unique(), email, password, username);
-    
-    // Create session for the new user
-    await account.createEmailPasswordSession(email, password);
-    
-    // Store additional user data in database
-    const databaseId = import.meta.env.VITE_APPWRITE_DATABASE_ID;
-    const collectionId = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
-    
+    const user = await users.create(
+      ID.unique(),
+      email,
+      phone || undefined,
+      password,
+      username
+    );
+
+    // Create user profile document
     await databases.createDocument(
-      databaseId,
-      collectionId,
+      process.env.VITE_APPWRITE_DATABASE_ID,
+      process.env.VITE_APPWRITE_USERS_COLLECTION_ID,
       user.$id,
       {
         username: username.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone?.trim() || null,
         gender: gender || null,
         dateOfBirth: dateOfBirth || null,
         country: country || null,
-        number: formattedNumber,
-        email: email.trim().toLowerCase(),
         city: city || null,
+        theme,
         createdAt: new Date().toISOString(),
-      }
+        updatedAt: new Date().toISOString()
+      },
+      [
+        Permission.read(Role.user(user.$id)),
+        Permission.update(Role.user(user.$id)),
+        Permission.delete(Role.user(user.$id))
+      ]
     );
-    
-    return user;
-  } catch (error) {
-    console.error('Appwrite signup error:', error.code, error.message, error.type);
-    
-    // Handle Appwrite specific errors
-    if (error.code === 409) {
-      throw new Error('This email is already registered.');
-    } else if (error.code === 401) {
-      throw new Error('Invalid Appwrite credentials or project ID.');
-    } else if (error.code === 400) {
-      throw new Error('Invalid input. Ensure email and password are valid.');
-    } else if (error.code === 429) {
-      throw new Error('Too many requests. Please try again later.');
-    } else if (error.code === 503) {
-      throw new Error('Appwrite service unavailable. Please try again later.');
-    } else if (!error.code) {
-      // Handle validation errors or other non-Appwrite errors
-      throw error;
-    } else {
-      throw new Error(`Signup failed: ${error.message || 'Unknown error'}`);
-    }
-  }
-};
 
-/**
- * Verifies user email via Appwrite
- * @param {string} url - Redirect URL after verification
- * @returns {Promise<Object>} - Email verification result
- */
-export const sendEmailVerification = async (url) => {
-  try {
-    return await account.createVerification(url);
+    return res.json({
+      success: true,
+      userId: user.$id,
+      email: user.email,
+      message: 'User created successfully'
+    });
+    
   } catch (error) {
-    console.error('Email verification error:', error);
-    throw new Error(`Failed to send verification email: ${error.message}`);
+    console.error('Full user creation error:', error);
+    
+    let errorMessage = 'Failed to create user';
+    let statusCode = 500;
+    
+    if (error.type === 'user_already_exists') {
+      errorMessage = 'User with this email already exists';
+      statusCode = 409;
+    } else if (error.code === 401) {
+      errorMessage = 'Authentication failed - invalid API credentials';
+      statusCode = 401;
+    } else if (error.code === 404) {
+      errorMessage = 'Database or collection not found';
+      statusCode = 404;
+    }
+    
+    return res.status(statusCode).json({
+      success: false,
+      error: errorMessage,
+      details: error.message 
+    });
   }
-};
+}

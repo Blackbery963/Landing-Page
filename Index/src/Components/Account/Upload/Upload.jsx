@@ -202,18 +202,25 @@ const UploadSection = () => {
     newEntries[index].file = file;
     setEntries(newEntries);
   };
-
+  // Fixed uploadImage function
   const uploadImage = async (file, userId) => {
     try {
+      // Make sure bucketId is consistent
+      const bucketId = config.storageBucketId || config.bucketId;
+      
+      if (!bucketId) {
+        throw new Error('Storage bucket ID is not configured');
+      }
+      
       const response = await storage.createFile(
-        config.storageBucketId,
+        bucketId,
         ID.unique(),
         file,
         [
           Permission.read(Role.user(userId)),
           Permission.update(Role.user(userId)),
           Permission.delete(Role.user(userId)),
-          Permission.read(Role.any()) // For public access if needed
+          Permission.read(Role.any()) // For public access
         ],
         (progress) => {
           const percentage = Math.round((progress.chunksUploaded / progress.chunksTotal) * 100);
@@ -223,15 +230,35 @@ const UploadSection = () => {
       return response;
     } catch (err) {
       console.error('Upload error:', err);
+      
+      // More specific error handling
+      if (err.code === 401) {
+        throw new Error('Authentication required. Please log in again.');
+      } else if (err.code === 403) {
+        throw new Error('You don\'t have permission to upload to this bucket.');
+      } else if (err.code === 413) {
+        throw new Error('File is too large for upload.');
+      } else if (err.code === 400) {
+        throw new Error('Invalid file or upload parameters.');
+      }
+      
       throw new Error(err.message || 'Failed to upload image');
     }
   };
-
+  
+  // Fixed storeImageMeta function
   const storeImageMeta = async (fileId, userId, otherData = {}) => {
     try {
+      // Use a specific collection for artwork, not users collection
+      const artCollectionId = config.artworkCollectionId || config.usersCollectionId;
+      
+      if (!config.databaseId || !artCollectionId) {
+        throw new Error('Database or collection ID is not configured');
+      }
+      
       const response = await databases.createDocument(
         config.databaseId,
-        config.usersCollectionId,
+        artCollectionId,
         ID.unique(),
         {
           fileId,
@@ -242,18 +269,29 @@ const UploadSection = () => {
         },
         [
           Permission.read(Role.user(userId)),
-          Permission.write(Role.user(userId)),
+          Permission.update(Role.user(userId)),
           Permission.delete(Role.user(userId)),
-          Permission.read(Role.any()) // For public access if needed
+          Permission.read(Role.any()) // For public access
         ]
       );
       return response;
     } catch (err) {
       console.error('Metadata storage error:', err);
+      
+      // More specific error handling
+      if (err.code === 401) {
+        throw new Error('Authentication required. Please log in again.');
+      } else if (err.code === 403) {
+        throw new Error('You don\'t have permission to create documents in this collection.');
+      } else if (err.code === 400) {
+        throw new Error('Invalid document data.');
+      }
+      
       throw new Error(err.message || 'Failed to store metadata');
     }
   };
-
+  
+  // Fixed handleEntryUpload function
   const handleEntryUpload = async (index) => {
     const entry = entries[index];
     
@@ -270,10 +308,10 @@ const UploadSection = () => {
       toast.error('Please select an art type');
       return;
     }
-
+  
     setUploadingStates((prev) => ({ ...prev, [index]: true }));
     setProgress(0);
-
+  
     try {
       // Verify user authentication
       let user;
@@ -281,13 +319,14 @@ const UploadSection = () => {
         user = await account.get();
         if (!user || !user.$id) throw new Error('User not authenticated');
       } catch (authErr) {
+        console.error('Authentication error:', authErr);
         throw new Error('Please log in to upload images');
       }
-
+  
       // Upload the file
       const uploadedFile = await uploadImage(entry.file, user.$id);
       if (!uploadedFile?.$id) throw new Error('File upload failed');
-
+  
       // Store metadata
       const metadata = {
         title: entry.title.trim(),
@@ -297,19 +336,20 @@ const UploadSection = () => {
         dimensions: entry.dimensions || '',
         isPublic: true // You can make this configurable
       };
-
+  
       const document = await storeImageMeta(uploadedFile.$id, user.$id, metadata);
       if (!document?.$id) throw new Error('Metadata storage failed');
-
+  
+      // Use consistent bucket ID reference
+      const bucketId = config.storageBucketId || config.bucketId;
+      const imageUrl = storage.getFileView(bucketId, uploadedFile.$id);
+      console.log('Image available at:', imageUrl);
+  
       // Reset the form
       const newEntries = [...entries];
       newEntries[index] = { title: '', description: '', tag: '', medium: '', file: null };
       setEntries(newEntries);
-
-      // Get the public URL for display
-      const imageUrl = storage.getFileView(config.storageBucketId, uploadedFile.$id);
-      console.log('Image available at:', imageUrl);
-
+  
       toast.success(
         <div>
           <p className="font-semibold">"{entry.title}" uploaded successfully!</p>
@@ -317,7 +357,7 @@ const UploadSection = () => {
         </div>,
         { autoClose: 5000 }
       );
-
+  
     } catch (err) {
       console.error('Upload process failed:', err);
       
@@ -336,6 +376,7 @@ const UploadSection = () => {
       setProgress(0);
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center p-6 bg-gradient-to-b from-gray-100 to-white dark:from-[#040d12f5] dark:to-[#1a2630f5] min-h-screen pt-[100px]">

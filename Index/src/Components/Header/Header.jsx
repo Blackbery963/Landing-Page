@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useContext, createContext } from "react";
-import lightBackgroundImage from "/home/swarnadip/Documents/Index/Index/Index/src/Components/Header/Header-Images/mountains-440520.jpg";
-import darkBackgroundImage from "/home/swarnadip/Documents/Index/Index/Index/src/Components/Header/Header-Images/pexels-eberhardgross-2098428.jpg";
+import lightBackgroundImage from "./Header-Images/mountains-440520.jpg";
+import darkBackgroundImage from "./Header-Images/pexels-eberhardgross-2098428.jpg";
 import { FaUserPlus, FaUser, FaImages, FaList, FaBlog, FaQuestionCircle, FaHandsHelping, FaComment, FaCartPlus, FaSun, FaMoon } from "react-icons/fa";
 import { FaHome, FaHeart,  FaUsers, FaCrown, FaCog } from "react-icons/fa";
 import { Link } from "react-router-dom";

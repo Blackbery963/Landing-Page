@@ -323,7 +323,11 @@ function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-gradient-to-br from-gray-800 to-blue-900 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen w-screen flex flex-col items-center justify-center p-4" style={{
+      backgroundImage: `url(https://img.freepik.com/free-photo/swan-feathers-elegantly-glide-reflective-scene-crafting-serene-poetic-tableau_157027-2583.jpg?uid=R164504650&ga=GA1.1.955884625.1725872001&semt=ais_hybrid&w=740)`,
+     backgroundPosition:'center',
+     backgroundSize:'cover'
+    }}>
       <header className="fixed top-4 h-[90px] w-full text-[30px] lg:text-[35px] font-bold font-Eagle text-black md:text-center text-left pl-4">
         Painters' Diary
       </header>

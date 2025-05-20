@@ -15,4 +15,9 @@ export default defineConfig({
     include: ['swiper'],
     exclude: ['react-hot-toast']
   },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
+  },
 });

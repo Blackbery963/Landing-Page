@@ -41,6 +41,8 @@ export default {
         Unna:["Unna","Serif"],
         Create: ["Crete Round"],
         Upright: ["Cormorant Upright"],
+        Lugrasimo:["Lugrasimo"],
+        Nano:["Nano Serif"]
         
     },
 

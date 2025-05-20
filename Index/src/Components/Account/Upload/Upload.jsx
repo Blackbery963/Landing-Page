@@ -124,7 +124,7 @@ const UploadEntry = ({ index, entry, updateEntry, removeEntry, handleFileChange,
                   Drag & drop your image or{' '}
                   <span className="text-teal-600 dark:text-teal-400 font-semibold">browse</span>
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-wrap">
                   Supports JPG, PNG, WEBP (Max 25MB)
                 </p>
               </>
@@ -203,15 +203,66 @@ const UploadSection = () => {
     setEntries(newEntries);
   };
   // Fixed uploadImage function
+  // const uploadImage = async (file, userId) => {
+  //   try {
+  //     // Make sure bucketId is consistent
+  //     const bucketId = config.storageBucketId || config.bucketId;
+      
+  //     if (!bucketId) {
+  //       throw new Error('Storage bucket ID is not configured');
+  //     }
+      
+  //     const response = await storage.createFile(
+  //       bucketId,
+  //       ID.unique(),
+  //       file,
+  //       [
+  //         Permission.read(Role.user(userId)),
+  //         Permission.update(Role.user(userId)),
+  //         Permission.delete(Role.user(userId)),
+  //         Permission.read(Role.any()) // For public access
+  //       ],
+  //       (progress) => {
+  //         const percentage = Math.round((progress.chunksUploaded / progress.chunksTotal) * 100);
+  //         setProgress(percentage);
+  //       }
+  //     );
+  //     return response;
+  //   } catch (err) {
+  //     console.error('Upload error:', err);
+      
+  //     // More specific error handling
+  //     if (err.code === 401) {
+  //       throw new Error('Authentication required. Please log in again.');
+  //     } else if (err.code === 403) {
+  //       throw new Error('You don\'t have permission to upload to this bucket.');
+  //     } else if (err.code === 413) {
+  //       throw new Error('File is too large for upload.');
+  //     } else if (err.code === 400) {
+  //       throw new Error('Invalid file or upload parameters.');
+  //     }
+      
+  //     throw new Error(err.message || 'Failed to upload image');
+  //   }
+  // };
+  
+
   const uploadImage = async (file, userId) => {
     try {
-      // Make sure bucketId is consistent
-      const bucketId = config.storageBucketId || config.bucketId;
-      
+      // Ensure consistent bucket ID reference
+      const bucketId = config.bucketId;
       if (!bucketId) {
-        throw new Error('Storage bucket ID is not configured');
+        throw new Error('Storage bucket is not configured');
       }
-      
+  
+      // Create metadata object
+      const metadata = {
+        userId,
+        originalName: file.name,
+        fileType: file.type,
+        uploadDate: new Date().toISOString()
+      };
+  
       const response = await storage.createFile(
         bucketId,
         ID.unique(),
@@ -220,78 +271,194 @@ const UploadSection = () => {
           Permission.read(Role.user(userId)),
           Permission.update(Role.user(userId)),
           Permission.delete(Role.user(userId)),
-          Permission.read(Role.any()) // For public access
+          Permission.read(Role.any())
         ],
+        // Progress callback (if needed)
         (progress) => {
           const percentage = Math.round((progress.chunksUploaded / progress.chunksTotal) * 100);
           setProgress(percentage);
         }
       );
+      
       return response;
     } catch (err) {
       console.error('Upload error:', err);
-      
-      // More specific error handling
-      if (err.code === 401) {
-        throw new Error('Authentication required. Please log in again.');
-      } else if (err.code === 403) {
-        throw new Error('You don\'t have permission to upload to this bucket.');
-      } else if (err.code === 413) {
-        throw new Error('File is too large for upload.');
-      } else if (err.code === 400) {
-        throw new Error('Invalid file or upload parameters.');
-      }
-      
-      throw new Error(err.message || 'Failed to upload image');
+      throw err;
     }
   };
-  
   // Fixed storeImageMeta function
-  const storeImageMeta = async (fileId, userId, otherData = {}) => {
+  // const storeImageMeta = async (fileId, userId, otherData = {}) => {
+  //   try {
+  //     // Use a specific collection for artwork, not users collection
+  //     const artCollectionId = config.artworkCollectionId || config.usersCollectionId;
+      
+  //     if (!config.databaseId || !artCollectionId) {
+  //       throw new Error('Database or collection ID is not configured');
+  //     }
+      
+  //     const response = await databases.createDocument(
+  //       config.databaseId,
+  //       artCollectionId,
+  //       ID.unique(),
+  //       {
+  //         fileId,
+  //         userId,
+  //         ...otherData,
+  //         createdAt: new Date().toISOString(),
+  //         status: 'active'
+  //       },
+  //       [
+  //         Permission.read(Role.user(userId)),
+  //         Permission.update(Role.user(userId)),
+  //         Permission.delete(Role.user(userId)),
+  //         Permission.read(Role.any()) // For public access
+  //       ]
+  //     );
+  //     return response;
+  //   } catch (err) {
+  //     console.error('Metadata storage error:', err);
+      
+  //     // More specific error handling
+  //     if (err.code === 401) {
+  //       throw new Error('Authentication required. Please log in again.');
+  //     } else if (err.code === 403) {
+  //       throw new Error('You don\'t have permission to create documents in this collection.');
+  //     } else if (err.code === 400) {
+  //       throw new Error('Invalid document data.');
+  //     }
+      
+  //     throw new Error(err.message || 'Failed to store metadata');
+  //   }
+  // };
+  
+
+  const storeImageMeta = async (fileId, userId, entryData) => {
     try {
-      // Use a specific collection for artwork, not users collection
-      const artCollectionId = config.artworkCollectionId || config.usersCollectionId;
-      
-      if (!config.databaseId || !artCollectionId) {
-        throw new Error('Database or collection ID is not configured');
+      // Ensure database and collection IDs exist
+      if (!config.databaseId || !config.usersCollectionId) {
+        throw new Error('Database configuration is incomplete');
       }
-      
+  
+      // Prepare the document data
+      const documentData = {
+        fileId,
+        userId,
+        title: entryData.title,
+        description: entryData.description,
+        tags: entryData.tag ? [entryData.tag] : [],
+        medium: entryData.medium,
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+  
       const response = await databases.createDocument(
         config.databaseId,
-        artCollectionId,
+        config.usersCollectionId,
         ID.unique(),
-        {
-          fileId,
-          userId,
-          ...otherData,
-          createdAt: new Date().toISOString(),
-          status: 'active'
-        },
+        documentData,
         [
           Permission.read(Role.user(userId)),
           Permission.update(Role.user(userId)),
           Permission.delete(Role.user(userId)),
-          Permission.read(Role.any()) // For public access
+          Permission.read(Role.any())
         ]
       );
+  
       return response;
     } catch (err) {
       console.error('Metadata storage error:', err);
-      
-      // More specific error handling
-      if (err.code === 401) {
-        throw new Error('Authentication required. Please log in again.');
-      } else if (err.code === 403) {
-        throw new Error('You don\'t have permission to create documents in this collection.');
-      } else if (err.code === 400) {
-        throw new Error('Invalid document data.');
-      }
-      
-      throw new Error(err.message || 'Failed to store metadata');
+      throw err;
     }
   };
-  
+
+
   // Fixed handleEntryUpload function
+  // const handleEntryUpload = async (index) => {
+  //   const entry = entries[index];
+    
+  //   // Validate required fields
+  //   if (!entry.title.trim()) {
+  //     toast.error('Please provide a title for your artwork');
+  //     return;
+  //   }
+  //   if (!entry.file) {
+  //     toast.error('Please select an image to upload');
+  //     return;
+  //   }
+  //   if (!entry.medium) {
+  //     toast.error('Please select an art type');
+  //     return;
+  //   }
+  
+  //   setUploadingStates((prev) => ({ ...prev, [index]: true }));
+  //   setProgress(0);
+  
+  //   try {
+  //     // Verify user authentication
+  //     let user;
+  //     try {
+  //       user = await account.get();
+  //       if (!user || !user.$id) throw new Error('User not authenticated');
+  //     } catch (authErr) {
+  //       console.error('Authentication error:', authErr);
+  //       throw new Error('Please log in to upload images');
+  //     }
+  
+  //     // Upload the file
+  //     const uploadedFile = await uploadImage(entry.file, user.$id);
+  //     if (!uploadedFile?.$id) throw new Error('File upload failed');
+  
+  //     // Store metadata
+  //     const metadata = {
+  //       title: entry.title.trim(),
+  //       description: entry.description.trim(),
+  //       tag: entry.tag.trim(),
+  //       medium: entry.medium,
+  //       dimensions: entry.dimensions || '',
+  //       isPublic: true // You can make this configurable
+  //     };
+  
+  //     const document = await storeImageMeta(uploadedFile.$id, user.$id, metadata);
+  //     if (!document?.$id) throw new Error('Metadata storage failed');
+  
+  //     // Use consistent bucket ID reference
+  //     const bucketId = config.storageBucketId || config.bucketId;
+  //     const imageUrl = storage.getFileView(bucketId, uploadedFile.$id);
+  //     console.log('Image available at:', imageUrl);
+  
+  //     // Reset the form
+  //     const newEntries = [...entries];
+  //     newEntries[index] = { title: '', description: '', tag: '', medium: '', file: null };
+  //     setEntries(newEntries);
+  
+  //     toast.success(
+  //       <div>
+  //         <p className="font-semibold">"{entry.title}" uploaded successfully!</p>
+  //         <p className="text-sm">Your artwork is now live.</p>
+  //       </div>,
+  //       { autoClose: 5000 }
+  //     );
+  
+  //   } catch (err) {
+  //     console.error('Upload process failed:', err);
+      
+  //     let errorMessage = 'Upload failed. Please try again.';
+  //     if (err.message.includes('permission') || err.message.includes('authenticated')) {
+  //       errorMessage = 'Please log in to upload images';
+  //     } else if (err.message.includes('size')) {
+  //       errorMessage = 'File is too large (max 25MB)';
+  //     } else if (err.message.includes('type')) {
+  //       errorMessage = 'Invalid file type (JPEG, PNG, or WEBP only)';
+  //     }
+      
+  //     toast.error(errorMessage, { autoClose: 5000 });
+  //   } finally {
+  //     setUploadingStates((prev) => ({ ...prev, [index]: false }));
+  //     setProgress(0);
+  //   }
+  // };
+
   const handleEntryUpload = async (index) => {
     const entry = entries[index];
     
@@ -313,39 +480,22 @@ const UploadSection = () => {
     setProgress(0);
   
     try {
-      // Verify user authentication
-      let user;
-      try {
-        user = await account.get();
-        if (!user || !user.$id) throw new Error('User not authenticated');
-      } catch (authErr) {
-        console.error('Authentication error:', authErr);
-        throw new Error('Please log in to upload images');
+      // Get current user
+      const user = await account.get();
+      if (!user || !user.$id) {
+        throw new Error('User not authenticated');
       }
   
-      // Upload the file
+      // Upload file
       const uploadedFile = await uploadImage(entry.file, user.$id);
-      if (!uploadedFile?.$id) throw new Error('File upload failed');
+      if (!uploadedFile?.$id) {
+        throw new Error('File upload failed');
+      }
   
       // Store metadata
-      const metadata = {
-        title: entry.title.trim(),
-        description: entry.description.trim(),
-        tag: entry.tag.trim(),
-        medium: entry.medium,
-        dimensions: entry.dimensions || '',
-        isPublic: true // You can make this configurable
-      };
+      await storeImageMeta(uploadedFile.$id, user.$id, entry);
   
-      const document = await storeImageMeta(uploadedFile.$id, user.$id, metadata);
-      if (!document?.$id) throw new Error('Metadata storage failed');
-  
-      // Use consistent bucket ID reference
-      const bucketId = config.storageBucketId || config.bucketId;
-      const imageUrl = storage.getFileView(bucketId, uploadedFile.$id);
-      console.log('Image available at:', imageUrl);
-  
-      // Reset the form
+      // Reset the form entry
       const newEntries = [...entries];
       newEntries[index] = { title: '', description: '', tag: '', medium: '', file: null };
       setEntries(newEntries);
@@ -360,17 +510,7 @@ const UploadSection = () => {
   
     } catch (err) {
       console.error('Upload process failed:', err);
-      
-      let errorMessage = 'Upload failed. Please try again.';
-      if (err.message.includes('permission') || err.message.includes('authenticated')) {
-        errorMessage = 'Please log in to upload images';
-      } else if (err.message.includes('size')) {
-        errorMessage = 'File is too large (max 25MB)';
-      } else if (err.message.includes('type')) {
-        errorMessage = 'Invalid file type (JPEG, PNG, or WEBP only)';
-      }
-      
-      toast.error(errorMessage, { autoClose: 5000 });
+      toast.error(err.message || 'Upload failed. Please try again.', { autoClose: 5000 });
     } finally {
       setUploadingStates((prev) => ({ ...prev, [index]: false }));
       setProgress(0);

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Typewriter from "react-typewriter-effect";
 import { Link } from 'react-router-dom';
 import { FaUserEdit, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import Your_Collections from './Your_Collection/Your_Collections';
